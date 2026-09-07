@@ -1,0 +1,56 @@
+# Pyrrhula samples
+
+Four ready-made workspaces you can import into a fresh Pyrrhula deployment and run. Each
+one is a single `.pyr` file plus a step-by-step README that assumes you have never used
+Pyrrhula before.
+
+| Sample | What it shows | Agents |
+|---|---|---|
+| [hagnaryd-mystery](hagnaryd-mystery/) | Six agents, each with private briefs the others cannot see. A closed-house murder where the culprit has to survive an interrogation. | 6 |
+| [coffee-campaign](coffee-campaign/) | A working session that produces a launch plan, where two people at the table hold commercially confidential facts they must not put in public copy. | 4 |
+| [cat-and-mice](cat-and-mice/) | A lead and a developer building a small browser game, one increment at a time. | 2 |
+| [pyrrhula-itself](pyrrhula-itself/) | Pyrrhula working on its own codebase: an architect, an implementer and a reviewer who hold the project's invariants. | 3 |
+
+**Start with [hagnaryd-mystery](hagnaryd-mystery/)** if you want to see what makes
+Pyrrhula different from a group chat with several prompts in it.
+
+## What a `.pyr` file is
+
+An export of one workspace: its cast, their briefs, the shared reference material, the
+flow they run, and — where the sample has them — the private secrets each character holds.
+It is an ordinary ZIP, so you can open one and read everything in it before you import it.
+Nothing in these files is encrypted, on purpose: they are written to be shared.
+
+**What is *not* in it, ever: API keys.** Pyrrhula refuses to write provider credentials
+into an unencrypted bundle, so every sample starts by asking you to add your own model
+connection. Nothing here can spend your money until you do.
+
+## What you need
+
+- A running Pyrrhula deployment you can sign up on.
+- An API key for a model provider (the samples were built and tested with
+  [DeepSeek](https://platform.deepseek.com/), which is inexpensive; anything Pyrrhula
+  supports will work).
+
+## The shape of every sample
+
+Each README walks through it in detail, but they all follow the same seven steps, and the
+order of the first two matters:
+
+1. **Sign up.** You get an organization and a workspace, and you are its *steward* — the
+   seat that can both build the room and watch it.
+2. **Choose the workflow** — *before* importing. This loads the vocabulary and the
+   personality dials the sample's cast uses. Import first and the dials arrive with
+   nowhere to land.
+3. **Add a model connection** with your own API key.
+4. **Import the `.pyr`.**
+5. **Point the imported cast at your connection.** They arrive unconnected by design.
+6. **Turn on anything the sample needs** (the murder mystery and the campaign need the
+   disclosure gate).
+7. **Start a session** with the sample's flow and agenda, and run it.
+
+## A note on cost
+
+These samples make real model calls. The murder mystery is the heaviest: six agents, and
+with the disclosure gate on there is an extra small call per secret-holding turn. Start
+with a few turns and see what your provider charges before running a whole case.
