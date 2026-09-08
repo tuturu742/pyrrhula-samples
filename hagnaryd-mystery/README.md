@@ -45,7 +45,7 @@ nothing to attach to and the cast will be flat.
 
 ## Step 3 — Add your model connection
 
-Go to **Personas → Model profiles → New**, and fill in:
+Go to **Personas** (top nav) **→ Model profiles → New model profile**, and fill in:
 
 - **Name**: `DeepSeek` (anything you like)
 - **Provider**: `deepseek`
@@ -56,7 +56,7 @@ Save. This is the only place your key lives; it is never written into a bundle.
 
 ## Step 4 — Import the case
 
-Go to your workspace, open **Export / Import**, and upload
+Go to your workspace, click **Export / import** (top right of the workspace page) and upload
 [`hagnaryd-mystery.pyr`](hagnaryd-mystery.pyr).
 
 The report should tell you it imported:
@@ -73,18 +73,18 @@ That is correct — that is step 5.
 
 ## Step 5 — Point the cast at your connection
 
-Go to the workspace's **Personas** page. Open each of the six and set its **model profile**
-to the connection you made in step 3. Save.
+Go to **Personas** and open each of the six. Set **Connection (model agent)** to the
+connection you made in step 3, and save.
 
 ## Step 6 — Turn on the disclosure gate
 
-On the workspace page, find the **Secrets gate** card and switch it **on**.
+On the workspace page, open the **Settings** tab and tick **Secret disclosure gate**.
 
 This is what decides, per turn, whether a character's own secret may surface — as a hint,
 as a full reveal, or not at all. With it off, held secrets never enter context at all:
 still leak-proof, but the suspects have nothing to hide and the case is not a case.
 
-In the same card, paste this as the **conduct rules**:
+Just below it there is a separate **Conduct rules** card. Paste this into it and save:
 
 ```
 Speak only as your own character, in first person. Never write another character's
@@ -104,7 +104,7 @@ it; copying the last message is the worst possible answer.
 
 Create a new session in the workspace:
 
-- **Flow**: `The Hägnaryd Case`
+- **Process definition**: `The Hägnaryd Case`
 - **Supervisor**: `Kriminalinspektör Petra Lind`
 - **Participants**: the other five
 - **Agenda**: paste this —

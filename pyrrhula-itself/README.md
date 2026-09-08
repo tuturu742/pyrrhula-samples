@@ -27,25 +27,25 @@ Register with any organization name. You land in **Default Workspace** as its **
 
 ## Step 3 — Add your model connection
 
-**Personas → Model profiles → New**: name `DeepSeek`, provider `deepseek`, model
+**Personas** (top nav) **→ Model profiles → New model profile**: name `DeepSeek`, provider `deepseek`, model
 `deepseek-chat`, and your API key.
 
 ## Step 4 — Import the team
 
-Workspace → **Export / Import** → upload [`pyrrhula-itself.pyr`](pyrrhula-itself.pyr).
+Workspace → **Export / import** (top right) → upload [`pyrrhula-itself.pyr`](pyrrhula-itself.pyr).
 
 You should see **3 personas** (`architect`, `implementer`, `reviewer`), **1 flow** ("Plan,
 implement, review"), and the ground rules as a knowledge attachment. No secrets.
 
 ## Step 5 — Point the team at your connection
 
-**Personas** → open each of the three → set its **model profile** to your connection.
+**Personas** → open each of the three → set **Connection (model agent)** to your connection.
 
 ## Step 6 — Start the session
 
 New session:
 
-- **Flow**: `Plan, implement, review`
+- **Process definition**: `Plan, implement, review`
 - **Supervisor**: `Architect`
 - **Participants**: `Implementer`, `Reviewer`
 - **Agenda**: something small and real. For example —

@@ -29,7 +29,7 @@ Register with any organization name. You land in **Default Workspace** as its **
 
 ## Step 3 — Add your model connection
 
-**Personas → Model profiles → New**:
+**Personas** (top nav) **→ Model profiles → New model profile**:
 
 - **Name**: `DeepSeek`
 - **Provider**: `deepseek`
@@ -38,7 +38,7 @@ Register with any organization name. You land in **Default Workspace** as its **
 
 ## Step 4 — Import the campaign
 
-Workspace → **Export / Import** → upload [`coffee-campaign.pyr`](coffee-campaign.pyr).
+Workspace → **Export / import** (top right) → upload [`coffee-campaign.pyr`](coffee-campaign.pyr).
 
 You should see it import **4 personas** (`brand-lead`, `analyst`, `planner`, `skeptic`),
 **2 secrets**, **1 flow** ("Campaign round table"), and the launch brief as a knowledge
@@ -46,11 +46,11 @@ attachment.
 
 ## Step 5 — Point the team at your connection
 
-**Personas** → open each of the four → set its **model profile** to your connection.
+**Personas** → open each of the four → set **Connection (model agent)** to your connection.
 
 ## Step 6 — Turn on the disclosure gate
 
-On the workspace page, find the **Secrets gate** card and switch it **on**. Without it the
+On the workspace page, open the **Settings** tab and tick **Secret disclosure gate**. Without it the
 two confidential facts never enter their holders' context at all, and the session becomes
 an ordinary planning meeting.
 
@@ -58,7 +58,7 @@ an ordinary planning meeting.
 
 New session:
 
-- **Flow**: `Campaign round table`
+- **Process definition**: `Campaign round table`
 - **Supervisor**: `Brand Lead`
 - **Participants**: `Market Analyst`, `Channel Planner`, `Devil's Advocate`
 - **Agenda**:

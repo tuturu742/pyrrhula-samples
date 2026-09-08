@@ -26,26 +26,26 @@ Register with any organization name. You land in **Default Workspace** as its **
 
 ## Step 3 — Add your model connection
 
-**Personas → Model profiles → New**: name `DeepSeek`, provider `deepseek`, model
+**Personas** (top nav) **→ Model profiles → New model profile**: name `DeepSeek`, provider `deepseek`, model
 `deepseek-chat`, and your API key.
 
 ## Step 4 — Import the project
 
-Workspace → **Export / Import** → upload [`cat-and-mice.pyr`](cat-and-mice.pyr).
+Workspace → **Export / import** (top right) → upload [`cat-and-mice.pyr`](cat-and-mice.pyr).
 
 You should see **2 personas** (`lead`, `dev`), **1 flow** ("Build and review"), and the
 studio conventions as a knowledge attachment. No secrets — this sample has none.
 
 ## Step 5 — Point the pair at your connection
 
-**Personas** → open `Studio Lead` and `Game Developer` → set each **model profile** to your
-connection.
+**Personas** → open `Studio Lead` and `Game Developer` → set **Connection (model agent)**
+to your connection.
 
 ## Step 6 — Start the session
 
 New session:
 
-- **Flow**: `Build and review`
+- **Process definition**: `Build and review`
 - **Supervisor**: `Studio Lead`
 - **Participant**: `Game Developer`
 - **Agenda**:
