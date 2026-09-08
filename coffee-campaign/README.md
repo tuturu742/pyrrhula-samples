@@ -25,7 +25,9 @@ Register with any organization name. You land in **Default Workspace** as its **
 
 ## Step 2 — Choose the Enterprise workflow
 
-**Before importing.** Go to **Workflows** and select **Enterprise Workflow**.
+**Before importing.** Go to **Workflows** and select **Default** — the workflow whose
+vocabulary is the enterprise one ("Enterprise Workflow" is the name of its label set,
+not of the workflow you pick here).
 
 ## Step 3 — Add your model connection
 
