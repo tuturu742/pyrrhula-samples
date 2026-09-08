@@ -156,11 +156,19 @@ is in her brief; you can read it on her persona page if you want to referee.
 
 ## Things worth knowing
 
-- **The gate fails closed.** If the gate's model call fails, every secret is concealed
-  for that turn and the reason is recorded. With DeepSeek you will see exactly that:
-  `deepseek-chat` rejects the structured-output format the gate asks for, so the gate
-  conceals every time. The characters still act on their briefs — concealment keeps the
-  *motivation* and removes only the plaintext — but you will not see hints or in-character
-  reveals until you point the gate at a model that supports structured output.
+- **Give the gate its own model.** The gate is a strict-JSON classifier, so it needs a
+  model that supports structured output — `deepseek-chat` does not, and rejects the
+  request. The gate then *fails closed*: everything is concealed, the reason is recorded,
+  and the characters still act on their briefs (concealment keeps the motivation and
+  removes only the plaintext) — but you never see a hint or an in-character reveal.
+
+  Point it at a small structured-output model instead. Go to **Personas → Model
+  profiles**, add a second connection (a verified run used provider `openai`, model
+  `gpt-4.1-mini`), then pick it under **Secret disclosure gate** on the same page. Your
+  characters keep talking on the cheap model; only the gate uses the other one.
+
+  That run produced 8 conceals, 4 hints and 1 full reveal — including a character giving
+  up the clue that breaks the case open, after which the rest of the table legitimately
+  knows it and can use it against her.
 - **Cost.** Six agents, plus one extra small call per secret-holding turn while the gate
   is on.

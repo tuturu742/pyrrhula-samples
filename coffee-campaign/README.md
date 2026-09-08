@@ -93,10 +93,12 @@ each held by one participant, and the Brand Lead holds neither.
 
 ## Things worth knowing
 
-- **The gate fails closed.** If its model call fails, everything is concealed for that
-  turn and the reason is recorded. `deepseek-chat` rejects the structured-output format the
-  gate uses, so with DeepSeek you will see conceal every time — the holders still argue
-  their corner (their briefs keep the motivation) but you will not see deliberate hints.
-  Point the gate at a model with structured output if you want the full behaviour.
+- **Give the gate its own model.** The gate is a strict-JSON classifier, so it needs a
+  model that supports structured output — `deepseek-chat` does not, and the gate then
+  *fails closed*: everything is concealed and the reason recorded. The holders still argue
+  their corner (their briefs keep the motivation), but you never see a deliberate hint.
+  Add a second connection under **Personas → Model profiles** (provider `openai`, model
+  `gpt-4.1-mini` works) and pick it under **Secret disclosure gate** there. Only the gate
+  uses it; the table keeps talking on whatever you like.
 - **Making it yours.** The two secrets are ordinary workspace content: open the Secrets
   page and edit them, or add your own, and the same machinery applies.
