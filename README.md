@@ -49,6 +49,16 @@ order of the first two matters:
    disclosure gate).
 7. **Start a session** with the sample's flow and agenda, and run it.
 
+## Licence
+
+These samples are **MIT** ([LICENSE](LICENSE)). Import them, edit them, build your own
+case on top of one, ship it commercially — nothing comes back to us.
+
+Pyrrhula itself, the engine you import them into, is
+[AGPL-3.0-only](https://github.com/tuturu742/pyrrhula). Using it to run these samples
+carries no obligation; modifying the *engine* and offering it to others over a network
+does.
+
 ## A note on cost
 
 These samples make real model calls. The murder mystery is the heaviest: six agents, and
