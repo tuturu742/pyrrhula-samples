@@ -76,13 +76,25 @@ That is correct — that is step 5.
 Go to **Personas** and open each of the six. Set **Connection (model agent)** to the
 connection you made in step 3, and save.
 
-## Step 6 — Turn on the disclosure gate
+## Step 6 — Choose how secrets are handled
 
-On the workspace page, open the **Settings** tab and tick **Secret disclosure gate**.
+On the workspace page, open the **Settings** tab and find **Secret handling**. The
+default, *Excluded*, keeps every brief out of every context — leak-proof, but the
+suspects have nothing to hide and the case is not a case. Pick one of the other two:
 
-This is what decides, per turn, whether a character's own secret may surface — as a hint,
-as a full reveal, or not at all. With it off, held secrets never enter context at all:
-still leak-proof, but the suspects have nothing to hide and the case is not a case.
+- **Trusted to the model** — each suspect gets their own brief in context, directive and
+  all, and the model plays it. No extra calls, no extra setup, and with a capable model
+  this is the best drama: Elin *knows* what she did and lies about it coherently. What a
+  character says about their own secret is the model's judgement — that is the trade.
+- **Gated** — a small classifier decides per turn whether each secret may be concealed,
+  hinted at, or revealed, and the verdict is enforced structurally. One extra model call
+  per secret-holding turn. Choose this when you don't trust the talking model with the
+  plaintext, or when you want reveals to formally change who knows what.
+
+In every mode, no suspect ever sees another's brief — that part is enforced by the
+system, not chosen here.
+
+For a first run on DeepSeek, pick **Trusted to the model**.
 
 Just below it there is a separate **Conduct rules** card. Paste this into it and save:
 
@@ -156,19 +168,13 @@ is in her brief; you can read it on her persona page if you want to referee.
 
 ## Things worth knowing
 
-- **Give the gate its own model.** The gate is a strict-JSON classifier, so it needs a
-  model that supports structured output — `deepseek-chat` does not, and rejects the
-  request. The gate then *fails closed*: everything is concealed, the reason is recorded,
-  and the characters still act on their briefs (concealment keeps the motivation and
-  removes only the plaintext) — but you never see a hint or an in-character reveal.
-
-  Point it at a small structured-output model instead. Go to **Personas → Model
-  profiles**, add a second connection (a verified run used provider `openai`, model
-  `gpt-4.1-mini`), then pick it under **Secret disclosure gate** on the same page. Your
-  characters keep talking on the cheap model; only the gate uses the other one.
-
+- **If you use the Gated mode, give the gate its own model.** The gate is a strict-JSON
+  classifier, so it needs structured output — `deepseek-chat` does not offer it, and the
+  gate then *fails closed*: everything concealed, every time, reason recorded. Add a
+  second connection under **Personas → Model profiles** (a verified run used provider
+  `openai`, model `gpt-4.1-mini`) and pick it under **Secret disclosure gate** there.
   That run produced 8 conceals, 4 hints and 1 full reveal — including a character giving
   up the clue that breaks the case open, after which the rest of the table legitimately
-  knows it and can use it against her.
+  knows it. On DeepSeek alone, use **Trusted to the model** instead.
 - **Cost.** Six agents, plus one extra small call per secret-holding turn while the gate
   is on.

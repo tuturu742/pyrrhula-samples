@@ -52,9 +52,11 @@ attachment.
 
 ## Step 6 — Turn on the disclosure gate
 
-On the workspace page, open the **Settings** tab and tick **Secret disclosure gate**. Without it the
-two confidential facts never enter their holders' context at all, and the session becomes
-an ordinary planning meeting.
+On the workspace page, open the **Settings** tab and set **Secret handling** to
+**Trusted to the model** (simplest) or **Gated** (adds a per-turn classifier — see the
+mystery sample's notes on giving it a structured-output model). Left on the default,
+the two confidential facts never enter their holders' context at all, and the session
+becomes an ordinary planning meeting.
 
 ## Step 7 — Run the session
 
