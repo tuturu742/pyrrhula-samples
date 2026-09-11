@@ -12,7 +12,9 @@ Pyrrhula before.
 | [pyrrhula-itself](pyrrhula-itself/) | Pyrrhula working on its own codebase: an architect, an implementer and a reviewer who hold the project's invariants. | 3 |
 
 **Start with [hagnaryd-mystery](hagnaryd-mystery/)** if you want to see what makes
-Pyrrhula different from a group chat with several prompts in it.
+Pyrrhula different from a group chat with several prompts in it — or read
+[an annotated transcript of a finished session](hagnaryd-mystery/TRANSCRIPT.md) first,
+with the engine's real per-turn conceal/hint decisions inline, before installing anything.
 
 ## What a `.pyr` file is
 

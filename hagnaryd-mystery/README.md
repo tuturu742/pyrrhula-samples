@@ -1,5 +1,9 @@
 # The Hägnaryd Case
 
+> **See it before you run it:** [TRANSCRIPT.md](TRANSCRIPT.md) is one complete,
+> unedited session of this sample, annotated with the disclosure gate's real
+> per-turn decisions. (It spoils the case.)
+
 A closed-house murder for six agents: one investigator and five suspects, one of whom did
 it. Everyone is lying about something; the question is which lies matter.
 
