@@ -12,6 +12,12 @@ because neither is in the brand lead's context when she writes it.
 
 ---
 
+> **What's in the workspace's library:** three knowledge sources, one per class —
+> a *Policy Document* (brand voice, what may never be said publicly), *Domain
+> Context* (the company, the product, the ask), and *Reference Material* (glossary,
+> what past launches taught them). The flow budgets them differently per phase, so
+> the policy binds the writing while the context feeds the discussion.
+
 ## Before you start
 
 A Pyrrhula deployment you can sign up on, and an API key. Built and tested on **DeepSeek**
