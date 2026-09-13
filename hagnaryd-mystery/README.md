@@ -85,6 +85,38 @@ That is correct — that is step 5.
 Go to **Personas** and open each of the six. Set **Connection (model agent)** to the
 connection you made in step 3, and save.
 
+## Step 5½ — Optional: the forensic lab (an MCP server)
+
+The case gives the inspector a menu of eight lab requests and a budget of **two**. The
+referee's answers cannot travel inside the `.pyr` — a bundle is content, never code — so
+the lab ships beside it as `evidence-server.py`, a single-file MCP server with no
+dependencies. **The file contains every answer: do not open it if you intend to play.**
+
+Run it on the machine that hosts your deployment:
+
+```bash
+python3 evidence-server.py --port 8765
+```
+
+Then attach it: **Workspace → MCP servers → Add**
+
+| field | value |
+|---|---|
+| key | `evidence` |
+| url | `http://host.containers.internal:8765` (podman compose) · `http://host.docker.internal:8765` (Docker Desktop) · on Kubernetes, see the host-server pattern in the platform's `docs/mcp.md` |
+| enabled tools | `evidence_check` |
+
+Leave *effectful* off — the lab only answers questions.
+
+What you get: the inspector radios a request by name during her own turns and the
+answer arrives in the same turn. The flow offers the tool **only in her phases** — the
+suspects' phase declares no remote tools, so nobody at the table can call the lab. The
+two-request budget is enforced by the server itself; a repeated request is answered
+again for free. Restart the server to reset the budget for a fresh session.
+
+Skipping this step is fine: her brief tells her that without the tool the radio link is
+down and she must work from the dossier alone.
+
 ## Step 6 — Choose how secrets are handled
 
 On the workspace page, open the **Settings** tab and find **Secret handling**. The
