@@ -39,13 +39,15 @@ When you land, you are in a workspace called **Default Workspace**, and your rol
 **steward** — the seat that can both build the room and inspect it. You will need both
 halves here.
 
-## Step 2 — Choose the Tabletop RPG workflow
+## Step 2 — The Tabletop RPG workflow
 
-**Do this before importing.** Go to **Workflows** and select **Tabletop RPG**.
+The bundle names the workflow it was authored under, and importing pins it for you. You
+do not have to select it first.
 
-This loads the personality dials the cast uses (how deceptive each character is, how
-readily their secrets surface under pressure). If you import first, the dials arrive with
-nothing to attach to and the cast will be flat.
+It matters because the workflow is what brings in the personality dials the cast uses —
+how deceptive each character is, how readily their secrets surface under pressure.
+Without them the cast is flat. If you would rather set it yourself, **Workflows →
+Tabletop RPG** before importing does the same thing.
 
 ## Step 3 — Add your model connection
 
@@ -68,7 +70,10 @@ The report should tell you it imported:
 - **6 personas** — `lind` (the investigator) and `viktor`, `elin`, `lager`, `sofia`,
   `marta`
 - **11 secrets** — the private briefs
-- **1 flow** — "The Hägnaryd Case"
+- **1 flow** — "The Hägnaryd Case": the inspector opens the scene and puts the first
+  question, each suspect answers once, the inspector names the contradiction that matters
+  and presses again — three rounds of that, then her conclusion. She leads it; the
+  suspects answer.
 - **1 knowledge attachment** — the shared setting
 - the vocabulary, *bound to the one already here* rather than duplicated
 
