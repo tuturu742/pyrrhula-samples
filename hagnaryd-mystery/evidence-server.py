@@ -63,18 +63,28 @@ TOOL = {
 
 
 def call(request: str) -> dict:
+    import datetime
+
     request = request.strip()
+    stamp = datetime.datetime.now().strftime("%H:%M:%S")
     if request not in RESULTS:
+        print(f"[{stamp}] REFUSED unknown request {request!r}", flush=True)
         return {"error": "unknown_request", "available": sorted(RESULTS)}
     with _lock:
         if request in _used:  # a repeat does not spend budget
+            print(
+                f"[{stamp}] repeat: {request} (budget unchanged: {len(_used)}/{LIMIT})",
+                flush=True,
+            )
             return {"request": request, "result": RESULTS[request]}
         if len(_used) >= LIMIT:
+            print(f"[{stamp}] REFUSED {request}: budget exhausted ({_used})", flush=True)
             return {
                 "error": "budget_exhausted",
                 "message": f"only {LIMIT} lab requests are allowed; you have used {_used}",
             }
         _used.append(request)
+    print(f"[{stamp}] answered: {request} (budget: {len(_used)}/{LIMIT})", flush=True)
     return {"request": request, "result": RESULTS[request]}
 
 
