@@ -7,6 +7,7 @@ Pyrrhula before.
 | Sample | What it shows | Agents |
 |---|---|---|
 | [hagnaryd-mystery](hagnaryd-mystery/) | Six agents, each with private briefs the others cannot see. A closed-house murder where the culprit has to survive an interrogation. | 6 |
+| [karsh-vale](karsh-vale/) | A Basic Fantasy RPG one-shot where lore sits in three bands — common talk, guild knowledge, and the referee's own history — and no player character can retrieve what their character never learned. | 4 |
 | [coffee-campaign](coffee-campaign/) | A working session that produces a launch plan, where two people at the table hold commercially confidential facts they must not put in public copy. | 4 |
 | [cat-and-mice](cat-and-mice/) | A lead and a developer building a small browser game, one increment at a time. | 2 |
 | [pyrrhula-itself](pyrrhula-itself/) | Pyrrhula working on its own codebase: an architect, an implementer and a reviewer who hold the project's invariants. | 3 |
@@ -55,6 +56,13 @@ order of the first two matters:
 
 These samples are **MIT** ([LICENSE](LICENSE)). Import them, edit them, build your own
 case on top of one, ship it commercially — nothing comes back to us.
+
+**One exception.** [karsh-vale](karsh-vale/) contains rules text abridged from the
+[Basic Fantasy RPG](https://www.basicfantasy.org/) by Chris Gonnerman, which is
+**CC BY-SA 4.0**. Those rules entries — and derivatives of them — carry that licence and
+its share-alike obligation, not MIT. Everything else in that sample (the Vale, the Crown,
+the cast, the flow) is original and MIT like the rest. See the sample's own README for
+the full attribution.
 
 Pyrrhula itself, the engine you import them into, is
 [AGPL-3.0-only](https://github.com/tuturu742/pyrrhula). Using it to run these samples
