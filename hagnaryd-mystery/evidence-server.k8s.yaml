@@ -43,6 +43,13 @@ spec:
         - name: lab
           image: docker.io/library/python:3.12-alpine
           command: ["python3", "/app/evidence-server.py", "--port", "8765"]
+          env:
+            # The lab cannot tell sessions apart, so its own counter is one pool shared
+            # by every game on this pod -- with it enabled, two concurrent sessions
+            # starve each other. Disable it and let Pyrrhula's per-session cap
+            # (max_calls_per_session on the MCP registration) hold the real limit.
+            - name: EVIDENCE_LAB_LIMIT
+              value: "0"
           ports:
             - containerPort: 8765
           volumeMounts:
