@@ -1,0 +1,59 @@
+# The Hägnaryd forensic lab, run inside the cluster -- for deployments where pods
+# cannot reach a process on the host by name (any Kubernetes install).
+#
+#   kubectl -n pyrrhula create configmap evidence-server --from-file=evidence-server.py
+#   kubectl apply -f evidence-server.k8s.yaml
+#
+# then register it on the workspace (Workspace -> MCP servers -> Add):
+#
+#   key            evidence
+#   url            http://evidence-lab:8765
+#   enabled tools  evidence_check
+#
+# The two-request budget lives in the pod's memory: delete the pod to reset it for a
+# fresh session --  kubectl -n pyrrhula rollout restart deploy/evidence-lab
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: pyrrhula
+  name: evidence-lab
+spec:
+  selector:
+    app: evidence-lab
+  ports:
+    - port: 8765
+      targetPort: 8765
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: pyrrhula
+  name: evidence-lab
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: evidence-lab
+  template:
+    metadata:
+      labels:
+        app: evidence-lab
+    spec:
+      containers:
+        - name: lab
+          image: docker.io/library/python:3.12-alpine
+          command: ["python3", "/app/evidence-server.py", "--port", "8765"]
+          ports:
+            - containerPort: 8765
+          volumeMounts:
+            - name: script
+              mountPath: /app
+          resources:
+            requests:
+              memory: 32Mi
+            limits:
+              memory: 128Mi
+      volumes:
+        - name: script
+          configMap:
+            name: evidence-server

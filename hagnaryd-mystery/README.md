@@ -103,7 +103,7 @@ Then attach it: **Workspace → MCP servers → Add**
 | field | value |
 |---|---|
 | key | `evidence` |
-| url | `http://host.containers.internal:8765` (podman compose) · `http://host.docker.internal:8765` (Docker Desktop) · on Kubernetes, see the host-server pattern in the platform's `docs/mcp.md` |
+| url | `http://host.containers.internal:8765` (podman compose) · `http://host.docker.internal:8765` (Docker Desktop) · `http://evidence-lab:8765` (Kubernetes, see below) |
 | enabled tools | `evidence_check` |
 
 Leave *effectful* off — the lab only answers questions.
@@ -113,6 +113,19 @@ answer arrives in the same turn. The flow offers the tool **only in her phases**
 suspects' phase declares no remote tools, so nobody at the table can call the lab. The
 two-request budget is enforced by the server itself; a repeated request is answered
 again for free. Restart the server to reset the budget for a fresh session.
+
+**On Kubernetes**, pods cannot reach a process on your machine by `localhost`, so run
+the lab inside the cluster instead — the script is dependency-free, so it is one
+ConfigMap and a tiny Deployment (`evidence-server.k8s.yaml`, alongside this file):
+
+```bash
+kubectl -n pyrrhula create configmap evidence-server --from-file=evidence-server.py
+kubectl apply -f evidence-server.k8s.yaml
+```
+
+Register with url `http://evidence-lab:8765`. The budget lives in the pod's memory;
+reset it for a fresh session with
+`kubectl -n pyrrhula rollout restart deploy/evidence-lab`.
 
 Skipping this step is fine: her brief tells her that without the tool the radio link is
 down and she must work from the dossier alone.
