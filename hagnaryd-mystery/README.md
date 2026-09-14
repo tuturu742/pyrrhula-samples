@@ -110,9 +110,15 @@ Leave *effectful* off — the lab only answers questions.
 
 What you get: the inspector radios a request by name during her own turns and the
 answer arrives in the same turn. The flow offers the tool **only in her phases** — the
-suspects' phase declares no remote tools, so nobody at the table can call the lab. The
-two-request budget is enforced by the server itself; a repeated request is answered
-again for free. Restart the server to reset the budget for a fresh session.
+suspects' phase declares no remote tools, so nobody at the table can call the lab. A
+repeated request is answered again for free.
+
+**The two-request budget is process-wide, not per session.** The server cannot tell
+sessions apart — the platform sends an external MCP server only the model's arguments,
+never a trusted session id — so every game sharing one pod draws from the same pool.
+Restart the pod between games to reset it (`kubectl -n pyrrhula rollout restart
+deploy/evidence-lab`, or restart the local process), and give concurrent games their own
+pod/port.
 
 **On Kubernetes**, pods cannot reach a process on your machine by `localhost`, so run
 the lab inside the cluster instead — the script is dependency-free, so it is one
