@@ -105,26 +105,28 @@ Then attach it: **Workspace → MCP servers → Add**
 | key | `evidence` |
 | url | `http://host.containers.internal:8765` (podman compose) · `http://host.docker.internal:8765` (Docker Desktop) · `http://evidence-lab:8765` (Kubernetes, see below) |
 | enabled tools | `evidence_check` |
+| calls/session | `2` |
 
 Leave *effectful* off — the lab only answers questions.
+
+**calls/session is the whole budget.** Set it to `2` and the inspector gets two lab
+requests per interview; leave it blank and she gets as many as she likes. Nothing else
+to configure, and nothing to reset between games.
 
 What you get: the inspector radios a request by name during her own turns and the
 answer arrives in the same turn. The flow offers the tool **only in her phases** — the
 suspects' phase declares no remote tools, so nobody at the table can call the lab. A
 repeated request is answered again for free.
 
-**Budgets live in Pyrrhula, not in the lab.** The server cannot tell sessions apart —
-the platform sends an external MCP server only the model's arguments, never a trusted
-session id — so its own counter is one pool shared by every caller. Register the server
-with a per-session cap instead, and each game gets its own allowance:
+**Why the budget lives here and not in the lab.** The server keeps no count of its own,
+deliberately: an external MCP server is sent only the model's arguments, never a trusted
+session id, so any budget it kept would be one pool shared by every game hitting it — two
+sessions running at once would silently starve each other. Pyrrhula knows the session, so
+Pyrrhula holds the limit. A capped-out inspector gets a plain refusal she can reason
+about (`session_call_cap_reached`) rather than an error, and two games can share one copy
+of the lab without interfering.
 
-- **UI** — the workspace's *MCP servers* card has a **calls/session** field (blank = unlimited).
-- **API** — `max_calls_per_session` on `PUT /mcp-servers`.
-
-With that set, two games can run against one lab pod without stealing each other's
-requests, and a capped-out inspector gets a plain refusal she can reason about
-(`session_call_cap_reached`) rather than an error. The lab's own `EVIDENCE_LAB_LIMIT`
-(default 2, `0` = unlimited) remains only as a backstop for running it outside Pyrrhula.
+(The same field is `max_calls_per_session` on `PUT /mcp-servers` if you prefer the API.)
 
 **On Kubernetes**, pods cannot reach a process on your machine by `localhost`, so run
 the lab inside the cluster instead — the script is dependency-free, so it is one
@@ -135,9 +137,9 @@ kubectl -n pyrrhula create configmap evidence-server --from-file=evidence-server
 kubectl apply -f evidence-server.k8s.yaml
 ```
 
-Register with url `http://evidence-lab:8765`. The budget lives in the pod's memory;
-reset it for a fresh session with
-`kubectl -n pyrrhula rollout restart deploy/evidence-lab`.
+Register with url `http://evidence-lab:8765` and the same **calls/session** value. One
+pod serves any number of games — the per-session budget keeps them apart, so there is
+nothing to restart between sessions.
 
 Skipping this step is fine: her brief tells her that without the tool the radio link is
 down and she must work from the dossier alone.
