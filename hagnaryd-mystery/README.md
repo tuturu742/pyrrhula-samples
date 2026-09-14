@@ -113,12 +113,18 @@ answer arrives in the same turn. The flow offers the tool **only in her phases**
 suspects' phase declares no remote tools, so nobody at the table can call the lab. A
 repeated request is answered again for free.
 
-**The two-request budget is process-wide, not per session.** The server cannot tell
-sessions apart — the platform sends an external MCP server only the model's arguments,
-never a trusted session id — so every game sharing one pod draws from the same pool.
-Restart the pod between games to reset it (`kubectl -n pyrrhula rollout restart
-deploy/evidence-lab`, or restart the local process), and give concurrent games their own
-pod/port.
+**Budgets live in Pyrrhula, not in the lab.** The server cannot tell sessions apart —
+the platform sends an external MCP server only the model's arguments, never a trusted
+session id — so its own counter is one pool shared by every caller. Register the server
+with a per-session cap instead, and each game gets its own allowance:
+
+- **UI** — the workspace's *MCP servers* card has a **calls/session** field (blank = unlimited).
+- **API** — `max_calls_per_session` on `PUT /mcp-servers`.
+
+With that set, two games can run against one lab pod without stealing each other's
+requests, and a capped-out inspector gets a plain refusal she can reason about
+(`session_call_cap_reached`) rather than an error. The lab's own `EVIDENCE_LAB_LIMIT`
+(default 2, `0` = unlimited) remains only as a backstop for running it outside Pyrrhula.
 
 **On Kubernetes**, pods cannot reach a process on your machine by `localhost`, so run
 the lab inside the cluster instead — the script is dependency-free, so it is one
