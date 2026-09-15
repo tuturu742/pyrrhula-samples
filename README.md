@@ -52,6 +52,18 @@ order of the first two matters:
    disclosure gate).
 7. **Start a session** with the sample's flow and agenda, and run it.
 
+## Several samples in one organization
+
+You can import all five into one organization — give each its own workspace. Each
+workspace pins the vocabulary its sample was authored under, so the murder mystery keeps
+*Game Master* and *Player* while the campaign keeps *Facilitator* and *Contributor*,
+whatever order you import in.
+
+The one thing that follows the last import is the organization's **current workflow** on
+the Workflows page. That only decides what a *new* workspace you create by hand starts
+with; it does not reach back into the workspaces you already imported. If you would rather
+keep them completely separate, one organization per sample also works.
+
 ## Licence
 
 These samples are **MIT** ([LICENSE](LICENSE)). Import them, edit them, build your own

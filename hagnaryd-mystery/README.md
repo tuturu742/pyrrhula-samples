@@ -144,11 +144,19 @@ nothing to restart between sessions.
 Skipping this step is fine: her brief tells her that without the tool the radio link is
 down and she must work from the dossier alone.
 
-## Step 6 — Choose how secrets are handled
+## Step 6 — Secrets are already switched on (check it)
 
-On the workspace page, open the **Settings** tab and find **Secret handling**. The
-default, *Excluded*, keeps every brief out of every context — leak-proof, but the
-suspects have nothing to hide and the case is not a case. Pick one of the other two:
+**The bundle brings this with it now.** Importing sets the workspace to *Trusted to the
+model* and installs the conduct rules the cast needs, so there is nothing to type here.
+Open the workspace **Settings** tab if you want to see it: **Secret handling** should read
+*Trusted to the model*, and **Conduct rules** should be filled in.
+
+If you are importing into a workspace that already chose a secret mode, the import leaves
+your choice alone — it only fills in what you had not decided. In that case set it
+yourself, because the default, *Excluded*, keeps every brief out of every context: leak-
+proof, but the suspects have nothing to hide and the case is not a case.
+
+The two modes worth having:
 
 - **Trusted to the model** — each suspect gets their own brief in context, directive and
   all, and the model plays it. No extra calls, no extra setup, and with a capable model
@@ -161,24 +169,6 @@ suspects have nothing to hide and the case is not a case. Pick one of the other 
 
 In every mode, no suspect ever sees another's brief — that part is enforced by the
 system, not chosen here.
-
-For a first run on DeepSeek, pick **Trusted to the model**.
-
-Just below it there is a separate **Conduct rules** card. Paste this into it and save:
-
-```
-Speak only as your own character, in first person. Never write another character's
-dialogue, thoughts, or actions, and never repeat or summarise what someone else just said
-as if it were your own account. Do not prefix your reply with your name or anyone else's.
-Keep replies under 180 words, in short paragraphs of two to four sentences with a blank
-line between them. Do not invent people, evidence, or events beyond your briefing and what
-has been said at this table.
-
-Never repeat another person's words as your own. If the previous speaker just said
-something, do NOT restate it -- react to it, contradict it, or answer the question you
-were actually asked. Your reply must be different in substance from every message above
-it; copying the last message is the worst possible answer.
-```
 
 ## Step 7 — Start the interview
 

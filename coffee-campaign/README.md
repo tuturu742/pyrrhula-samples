@@ -29,11 +29,15 @@ A Pyrrhula deployment you can sign up on, and an API key. Built and tested on **
 
 Register with any organization name. You land in **Default Workspace** as its **steward**.
 
-## Step 2 — Choose the Enterprise workflow
+## Step 2 — Choose the Default workflow
 
-**Before importing.** Go to **Workflows** and select **Default** — the workflow whose
-vocabulary is the enterprise one ("Enterprise Workflow" is the name of its label set,
-not of the workflow you pick here).
+**Before importing.** Go to **Workflows** and select **Default**. That is the one whose
+vocabulary is the enterprise label set — *Facilitator*, *Contributor* — which is why this
+sample reads as a working meeting rather than a game table. ("Enterprise Workflow" names
+the label set, not a workflow you can pick.)
+
+If you forget, the import pins it for you anyway; selecting it first just means the page
+reads correctly while you work.
 
 ## Step 3 — Add your model connection
 
