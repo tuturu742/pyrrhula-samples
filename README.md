@@ -10,7 +10,7 @@ Pyrrhula before.
 | [karsh-vale](karsh-vale/) | A Basic Fantasy RPG one-shot where lore sits in three bands — common talk, guild knowledge, and the referee's own history — and no player character can retrieve what their character never learned. | 4 |
 | [coffee-campaign](coffee-campaign/) | A working session that produces a launch plan, where two people at the table hold commercially confidential facts they must not put in public copy. | 4 |
 | [cat-and-mice](cat-and-mice/) | A lead and a developer building a small browser game, one increment at a time. | 2 |
-| [pyrrhula-itself](pyrrhula-itself/) | Pyrrhula working on its own codebase: an architect, an implementer and a reviewer who hold the project's invariants. | 3 |
+| [pyrrhula](pyrrhula/) | Pyrrhula working on its own codebase: an architect, a tiered bench of four developers and QA, holding the project's invariants. | 6 |
 
 **Start with [hagnaryd-mystery](hagnaryd-mystery/)** if you want to see what makes
 Pyrrhula different from a group chat with several prompts in it — or read

@@ -1,11 +1,11 @@
 # Working on Pyrrhula itself
 
-An architect, an implementer and a reviewer working on the Pyrrhula codebase — the
-dogfood sample.
+A tiered bench — architect, four developers and QA — working on the Pyrrhula codebase.
+The dogfood sample.
 
-**Why this sample exists.** The interesting part is not that three agents discuss code. It
-is that they share a written set of invariants, and the architect's job is to hold the line
-on them: if a proposed change would break tenancy isolation, or put secret plaintext where
+**Why this sample exists.** The interesting part is not that several agents discuss code.
+It is that they share a written set of invariants, and the architect's job is to hold the
+line on them: if a proposed change would break tenancy isolation, or put secret plaintext where
 exclusion should have removed it, or add an UPDATE grant to an append-only table, that is
 the objection — not a matter of style.
 
@@ -38,14 +38,20 @@ Register with any organization name. You land in **Default Workspace** as its **
 
 ## Step 4 — Import the team
 
-Workspace → **Export / import** (top right) → upload [`pyrrhula-itself.pyr`](pyrrhula-itself.pyr).
+Workspace → **Export / import** (top right) → upload [`pyrrhula.pyr`](pyrrhula.pyr).
 
-You should see **3 personas** (`architect`, `implementer`, `reviewer`), **1 flow** ("Plan,
-implement, review"), and the ground rules as a knowledge attachment. No secrets.
+You should see **6 personas** (`architect`, `staff`, `senior`, `middle`, `junior`, `qa`),
+**1 flow** ("Plan, implement, review"), and the ground rules as a knowledge attachment. No
+secrets.
 
-## Step 5 — Point the team at your connection
+## Step 5 — Point the team at your connections
 
-**Personas** → open each of the three → set **Connection (model agent)** to your connection.
+**Personas** → open each one → set **Connection (model agent)**.
+
+The roster is tiered on purpose: give `staff` and `architect` your strongest model, `senior`
+and `qa` something capable, and `middle`/`junior` something cheap and fast. That mix is the
+point — a table where every seat runs the same model is an expensive way to get one opinion
+repeated. Pointing all six at one connection works too if you are just trying it out.
 
 ## Step 6 — Start the session
 
@@ -53,7 +59,8 @@ New session:
 
 - **Process definition**: `Plan, implement, review`
 - **Supervisor**: `Architect`
-- **Participants**: `Implementer`, `Reviewer`
+- **Participants**: `Staff Dev`, `Senior Dev`, `Middle Dev`, `Junior Dev`, `QA` (or a
+  subset — a smaller table is cheaper and often sharper)
 - **Agenda**: something small and real. For example —
 
 ```
@@ -67,8 +74,10 @@ and what would have to be tested before it ships.
 ## What you should see
 
 The architect breaks the work into one change with a stated definition of done. The
-implementer proposes it against the ground rules. The reviewer asks for the failing test
-when a fix arrives without one — and says plainly when something is fine.
+developers propose it against the ground rules, and the tiers show: the staff dev is the
+one who says a task is wrong *before* it is started, while the junior asks rather than
+guessing. QA asks for the failing test when a fix arrives without one — and says plainly
+when something is fine.
 
 Watch for the invariants doing work. On the example agenda above, a good table notices
 that the endpoint reads gate decisions and therefore needs a permission check rather than
