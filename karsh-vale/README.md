@@ -85,7 +85,8 @@ The rules entries here are a derivative work of that text and are offered under 
 The bundle also carries the **mechanics** themselves -- the `basic_fantasy` rule system
 and the tool binding that points the platform's one randomizer at it -- so the one-shot
 is playable on import without installing a ruleset separately. Those are a conversion of
-the system (check types, expression grammar, the ability-modifier table), not of its prose, and the same attribution and
+the system (check types, expression grammar, the ability-modifier table), not of its
+prose, and the same attribution and
 share-alike obligation travels with them. It is carried *inside* the bundle as its own
 knowledge entry, so it reaches anyone who imports the file rather than only someone
 reading this repository.
