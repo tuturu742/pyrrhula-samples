@@ -40,7 +40,7 @@ running joke about Karsh Vale cheese and Marta Fenn setting two places are filed
 when a budget funds only rules and plot. (The rhyme is also, if you read it twice, the
 whole plot.)
 
-**Dice are records, not prose.** The resolve phase carries the dice tool and the referee
+**Dice are records, not prose.** The resolve phase carries the randomizer and the referee
 is told to call it and narrate what it gave — including when it goes badly. A result that
 was rolled is the record; a number a model invented is not.
 
@@ -83,9 +83,9 @@ The rules entries here are a derivative work of that text and are offered under 
 **same CC BY-SA 4.0 licence**. No artwork from the rulebook is included.
 
 The bundle also carries the **mechanics** themselves -- the `basic_fantasy` rule system
-and the `bfrpg_dice` tool that selects it -- so the one-shot is playable on import without
-installing a ruleset separately. Those are a conversion of the system (check types, dice
-grammar, the ability-modifier table), not of its prose, and the same attribution and
+and the tool binding that points the platform's one randomizer at it -- so the one-shot
+is playable on import without installing a ruleset separately. Those are a conversion of
+the system (check types, expression grammar, the ability-modifier table), not of its prose, and the same attribution and
 share-alike obligation travels with them. It is carried *inside* the bundle as its own
 knowledge entry, so it reaches anyone who imports the file rather than only someone
 reading this repository.
