@@ -82,5 +82,13 @@ Role-Playing Game**, 4th edition (release 142), by **Chris Gonnerman** and contr
 The rules entries here are a derivative work of that text and are offered under the
 **same CC BY-SA 4.0 licence**. No artwork from the rulebook is included.
 
+The bundle also carries the **mechanics** themselves -- the `basic_fantasy` rule system
+and the `bfrpg_dice` tool that selects it -- so the one-shot is playable on import without
+installing a ruleset separately. Those are a conversion of the system (check types, dice
+grammar, the ability-modifier table), not of its prose, and the same attribution and
+share-alike obligation travels with them. It is carried *inside* the bundle as its own
+knowledge entry, so it reaches anyone who imports the file rather than only someone
+reading this repository.
+
 The setting — Karsh Vale, Ashmere, the Hollow Crown, the tallowmen, and every named
 character — is original to this sample and contains no Basic Fantasy text.
