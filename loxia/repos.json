@@ -1,0 +1,21 @@
+[
+  {
+    "key": "loxia",
+    "name": "loxia",
+    "description": "A terminal Emby music client in Rust (ratatui + libmpv2).",
+    "source_url": "https://github.com/tuturu742/loxia-player",
+    "default_branch": "main",
+    "credential_secret": "gh_pyrrhula-bot",
+    "runtime": "rust-mpv",
+    "runtimes": {
+      "rust-mpv": {
+        "image": "localhost:5000/loxia-build:1",
+        "setup": []
+      }
+    },
+    "setup_cmds": [],
+    "test_cmd": "cargo test --workspace --lib --bins --tests",
+    "build_cmd": "cargo build --release --bin loxia-player && mkdir -p .pyrpkg && cp target/release/loxia-player .pyrpkg/ && tar czf loxia.tar.gz -C .pyrpkg .",
+    "artifact_name": "loxia.tar.gz"
+  }
+]
