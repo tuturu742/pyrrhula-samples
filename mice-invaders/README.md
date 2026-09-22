@@ -1,4 +1,4 @@
-# Cat vs Mice
+# Mice Invaders
 
 A studio lead and a developer building a small browser game: Space Invaders, except the
 player is a cat and the invaders are mice.
@@ -31,7 +31,7 @@ Register with any organization name. You land in **Default Workspace** as its **
 
 ## Step 4 — Import the project
 
-Workspace → **Export / import** (top right) → upload [`cat-and-mice.pyr`](cat-and-mice.pyr).
+Workspace → **Export / import** (top right) → upload [`mice-invaders.pyr`](mice-invaders.pyr).
 
 You should see **2 personas** (`lead`, `dev`), **1 flow** ("Build and review"), and the
 studio conventions as a knowledge attachment. No secrets — this sample has none.
