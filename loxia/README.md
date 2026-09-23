@@ -125,9 +125,17 @@ token, and set its test and build commands.
 - **Delegate work that lands.** Each work item becomes a branch and a pull request opened
   by the bot's own identity, not the repository owner's.
 - **Review what came back**, against the actual diff, and refuse to merge a red build.
-- **Preview a branch.** Build it from **Repos → Builds**, then start a preview: the player
-  comes up in a terminal in the browser, reading the recipe above rather than the
+- **Preview a branch.** A preview serves a build artifact, and the artifact is produced by
+  a delegation: the agent's container runs the test command, then the build command, and
+  uploads `loxia.tar.gz` when the build exits clean. There is no button that builds a
+  repository on its own — the build is part of doing the work, not a separate step. Once a
+  delegation on a branch has produced the artifact, start a preview on that branch and the
+  player comes up in a terminal in the browser, reading the recipe above rather than the
   static-site default.
+
+  Worth knowing for this repository in particular: loxia's trunk has failing tests, so a
+  delegation reports `tests failed` while still building and uploading — the build command
+  and the test command are judged separately, and only the build gates the artifact.
 
 That last one is worth expecting rather than fearing: loxia has five failing snapshot
 tests on `main`, so a reviewer that approves everything is a reviewer that is not reading.
