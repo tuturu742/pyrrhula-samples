@@ -148,4 +148,4 @@ token, and set its test and build commands.
   them is the same loop, one increment further on.
 
 That last one is worth expecting rather than fearing: loxia has five failing snapshot
-tests on `main`, so a reviewer that approves everything is a reviewer that is not reading.
+tests on `master`, so a reviewer that approves everything is a reviewer that is not reading.
