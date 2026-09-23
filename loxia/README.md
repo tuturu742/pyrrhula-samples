@@ -71,6 +71,36 @@ podman push --tls-verify=false localhost:5000/loxia-build:1
 `repos.json` then names it as the `rust-mpv` runtime, and every repository in the tenant
 can select that name instead of repeating the image.
 
+### The preview image
+
+Building loxia and *running* it need different images. The build image carries the Rust
+toolchain and `libmpv-dev`; a preview starts from an artifact that is already compiled, so
+what it needs is the runtime half — `libmpv2`, a terminfo database, and something that can
+put a terminal on an HTTP port.
+
+loxia has no web interface at all, which is exactly the case the static-site default gets
+wrong: it would serve a directory listing containing one executable. `repos.json` gives it
+a real recipe instead — `ttyd`, which puts the TUI in a browser tab:
+
+```json
+"preview_image": "localhost:5000/loxia-preview:1",
+"preview_cmd": "chmod +x ./loxia-player && ttyd -p 8080 -W ./loxia-player",
+"preview_port": 8080,
+"preview_env": { "TERM": "xterm-256color" }
+```
+
+Build and push it the same way:
+
+```bash
+podman build -t localhost:5000/loxia-preview:1 -f loxia-preview.Containerfile .
+podman push --tls-verify=false localhost:5000/loxia-preview:1
+```
+
+The same three fields can live in the repository instead, as `pyrrhula-preview.json` at
+its root — see `docs/previews.md` in the Pyrrhula repo for which layer wins. They are here
+because loxia is somebody else's repository and this sample should not require a commit to
+it.
+
 ## Setting it up
 
 ```bash
@@ -95,6 +125,9 @@ token, and set its test and build commands.
 - **Delegate work that lands.** Each work item becomes a branch and a pull request opened
   by the bot's own identity, not the repository owner's.
 - **Review what came back**, against the actual diff, and refuse to merge a red build.
+- **Preview a branch.** Build it from **Repos → Builds**, then start a preview: the player
+  comes up in a terminal in the browser, reading the recipe above rather than the
+  static-site default.
 
 That last one is worth expecting rather than fearing: loxia has five failing snapshot
 tests on `main`, so a reviewer that approves everything is a reviewer that is not reading.
