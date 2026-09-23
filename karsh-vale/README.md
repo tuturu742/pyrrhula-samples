@@ -69,6 +69,26 @@ of the stonework and he can tell you the last builders were sealing something *i
 Pip and he genuinely has nothing — not evasion, just absence. Or open the knowledge page
 as different personas and watch the sources appear and disappear.
 
+## The characters stay
+
+The party is still there next session. Characters, and each player's binding to theirs,
+belong to the **workspace**, not to the session that rolled them — only the transcript is
+session-scoped. That is the point for a table that meets again: start a second session in
+this workspace and Bram is still Bram, with the hit points the last fight left him.
+
+It is also the thing to know before you try to run the sample from the top twice. A second
+campaign here does not start with blank sheets: the players open with the first party
+already in context, and a player who reads it will reasonably decline to roll a character
+it already appears to have. Archiving the first session does not help — archiving hides a
+session, it does not remove what the session made.
+
+For a genuinely fresh campaign, use a fresh workspace, or purge and reseed the tenant:
+
+```bash
+python -m core.tenancy.purge --tenant karsh-vale --yes
+python scripts/seed_samples.py --secrets-dir … --samples-dir … --samples karsh-vale
+```
+
 ---
 
 ## Attribution and licence
