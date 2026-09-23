@@ -1,0 +1,11 @@
+[
+  {
+    "key": "evidence",
+    "url": "http://evidence-lab:8765",
+    "enabled_tools": ["evidence_check"],
+    "effectful_tools": [],
+    "require_confirmation": false,
+    "max_calls_per_session": 2,
+    "note": "The forensic lab. Two requests per session is the budget the case is written around: the inspector must choose which questions are worth asking. Run the server first -- see README step 5.5. The url is the in-cluster service; on compose use http://host.containers.internal:8765."
+  }
+]
