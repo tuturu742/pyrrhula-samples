@@ -62,6 +62,13 @@ referee and each other rather than marching in a fixed rota.
 Three scenes, then the referee brings it to a resting point with the real decision still
 in front of the party. There is deliberately no "correct" ending written down.
 
+**Or run the long one.** The bundle's flow is an evening. The `rpg` workflow pack also
+ships *A Campaign in Three Encounters* (`karsh_vale_campaign`), which uses this same cast
+and rulebook across eight beats — character creation, introductions, two encounters with
+an interlude between them, a puzzle, a boss fight and an epilogue. Its combat beats run
+three rounds each, with the referee taking a turn between rounds, so a fight is a fight
+rather than one action per player. Pick it on the session-start screen the same way.
+
 ### Seeing the bands work
 
 The quickest proof is to ask the same question of two characters. Ask Bram what he makes
