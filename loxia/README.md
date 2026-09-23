@@ -133,9 +133,13 @@ token, and set its test and build commands.
   player comes up in a terminal in the browser, reading the recipe above rather than the
   static-site default.
 
-  Worth knowing for this repository in particular: loxia's trunk has failing tests, so a
-  delegation reports `tests failed` while still building and uploading — the build command
-  and the test command are judged separately, and only the build gates the artifact.
+  **This repository cannot produce one yet, and that is the sample working as intended.**
+  The build step runs only when the test command passed, and loxia's trunk has failing
+  snapshot tests on purpose — they are what makes the review scenario real, because a
+  reviewer that approves a red build is a reviewer that is not reading. So a delegation
+  here reports `tests failed`, the build is skipped, no artifact is uploaded, and there is
+  nothing to preview. Preview a branch once the tests on it are green: the agents fixing
+  them is the same loop, one increment further on.
 
 That last one is worth expecting rather than fearing: loxia has five failing snapshot
 tests on `main`, so a reviewer that approves everything is a reviewer that is not reading.
