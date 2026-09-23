@@ -83,18 +83,24 @@ wrong: it would serve a directory listing containing one executable. `repos.json
 a real recipe instead — `ttyd`, which puts the TUI in a browser tab:
 
 ```json
-"preview_image": "localhost:5000/loxia-preview:1",
+"preview_image": "localhost:5000/loxia-preview:5",
 "preview_cmd": "chmod +x ./loxia-player && ttyd -p 8080 -W ./loxia-player",
 "preview_port": 8080,
 "preview_env": { "TERM": "xterm-256color" }
 ```
 
-Build and push it the same way:
+Build and push it the same way, and **give it a new tag every time**:
 
 ```bash
-podman build -t localhost:5000/loxia-preview:1 -f loxia-preview.Containerfile .
-podman push --tls-verify=false localhost:5000/loxia-preview:1
+podman build -t localhost:5000/loxia-preview:5 -f loxia-preview.Containerfile .
+podman push --tls-verify=false localhost:5000/loxia-preview:5
 ```
+
+Rebuilding under the tag already in `repos.json` is the one thing to avoid. A node that
+has pulled that tag once keeps its copy — the pull policy is `IfNotPresent` — so the
+preview goes on running days-old bytes while the registry holds the fix, and the symptom
+is whatever the old image lacked (here it was `python3: not found`) rather than anything
+that says "stale image". Bump the tag, bump this file, and the pull is unavoidable.
 
 The same three fields can live in the repository instead, as `pyrrhula-preview.json` at
 its root — see `docs/previews.md` in the Pyrrhula repo for which layer wins. They are here
