@@ -149,3 +149,21 @@ token, and set its test and build commands.
 
 That last one is worth expecting rather than fearing: loxia has five failing snapshot
 tests on `master`, so a reviewer that approves everything is a reviewer that is not reading.
+
+### What is actually wrong with them
+
+Not stale fixtures. `loxia_core::local_hour_minute` renders through
+`jiff::tz::TimeZone::system()`, and the header and the now-playing history both print a
+clock through it, so the rendered output depends on the timezone of whatever machine ran
+the test. The committed `.snap` files were generated in one zone and the test container
+runs in another, which is why the diffs show the same layout an hour or two apart.
+
+This is worth knowing before you judge a fix, because the obvious one is wrong. Running
+`cargo insta accept` inside the container produces fixtures pinned to the container's
+zone: the suite goes green there and breaks for anyone whose machine disagrees, which is
+the same bug facing the other way. A correct fix makes the zone an input -- a
+zone-taking variant of `local_hour_minute`, production passing the system zone and the
+tests passing a fixed one -- and only then regenerates the fixtures.
+
+An agent that reports green without touching `loxia-core` has almost certainly just
+re-pinned the zone. That is the thing to check.
