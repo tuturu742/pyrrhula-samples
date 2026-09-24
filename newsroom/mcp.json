@@ -1,0 +1,13 @@
+[
+  {
+    "key": "web_search",
+    "url": "http://searxng:8080",
+    "enabled_tools": ["search"],
+    "effectful_tools": [],
+    "require_confirmation": false,
+    "options": {
+      "engines": "hackernews,wikinews"
+    },
+    "note": "The bundled SearXNG. Two switches gate a search and BOTH are needed: each persona carries its own web_search flag (it travels in the .pyr), and this registration is the workspace's egress control, which a bundle deliberately cannot carry -- what a tenant may call out to is not the bundle author's decision. No max_calls_per_session: research is not rationed here. The engines are named because it matters: from an ordinary self-hosted address the big engines refuse (duckduckgo serves a CAPTCHA, brave and startpage and qwant block), and a refused search returns HTTP 200 with zero results, which is indistinguishable from a model that chose not to search. These two answer, and everything they return carries a date."
+  }
+]
