@@ -158,12 +158,23 @@ clock through it, so the rendered output depends on the timezone of whatever mac
 the test. The committed `.snap` files were generated in one zone and the test container
 runs in another, which is why the diffs show the same layout an hour or two apart.
 
-This is worth knowing before you judge a fix, because the obvious one is wrong. Running
-`cargo insta accept` inside the container produces fixtures pinned to the container's
-zone: the suite goes green there and breaks for anyone whose machine disagrees, which is
-the same bug facing the other way. A correct fix makes the zone an input -- a
-zone-taking variant of `local_hour_minute`, production passing the system zone and the
-tests passing a fixed one -- and only then regenerates the fixtures.
+This is worth knowing before you judge a fix, because one obvious move is wrong on its
+own. Running `cargo insta accept` and committing the result, with nothing else changed,
+pins the fixtures to whatever zone that particular run happened to be in: the suite goes
+green there and breaks for everyone whose machine disagrees, which is the same bug facing
+the other way.
 
-An agent that reports green without touching `loxia-core` has almost certainly just
-re-pinned the zone. That is the thing to check.
+What makes accepting correct is pinning the zone first, so that every run agrees. Two
+ways do that, and both are legitimate:
+
+- **Pin the environment.** An `[env]` table in `.cargo/config.toml` setting `TZ = "UTC"`
+  fixes the zone for processes cargo launches -- build scripts and test binaries -- and
+  leaves an already-built `loxia-player` alone, so the shipped player still shows the
+  user's real local time. Regenerated fixtures are then portable.
+- **Pin the input.** A zone-taking variant of `local_hour_minute`, with production
+  passing the system zone and the tests a fixed one. Heavier, and the better shape if the
+  clock ever needs to be controlled per test rather than per run.
+
+So the question to ask of a green branch is not whether it touched `loxia-core`. It is
+whether anything in it makes the zone the same on every machine. If the only change is
+regenerated `.snap` files, it does not, and the branch is green by luck.
