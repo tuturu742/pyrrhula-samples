@@ -12,7 +12,7 @@ Pyrrhula before.
 | [mice-invaders](mice-invaders/) | A lead and a developer building a small browser game, one increment at a time. | 2 |
 | [loxia](loxia/) | A real repository on a git host: the bench plans against an analyzed codebase, opens pull requests, and refuses to merge a red build. | 6 |
 | [pyrrhula](pyrrhula/) | Pyrrhula working on its own codebase: an architect, a tiered bench of four developers and QA, holding the project's invariants. | 6 |
-| [newsroom](newsroom/) | A two-desk daily paper, every seat on a local model, that has to publish this week's news with a source and a date on every story — the one sample whose output is false if the internet was not reached. | 3 |
+| [newsroom](newsroom/) | A two-desk daily paper, every seat on a local model, that has to publish this week's news with a source and a date on every story — the one sample whose output is false if the internet was not reached. Read its **What this sample does not do well** first: the searching is real and provable, but the prose is unreliable — run it to watch the machinery, not to read the paper. | 3 |
 
 **Start with [hagnaryd-mystery](hagnaryd-mystery/)** if you want to see what makes
 Pyrrhula different from a group chat with several prompts in it — or read

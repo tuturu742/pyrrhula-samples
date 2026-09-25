@@ -16,19 +16,25 @@ not reached.
 
 ## Why every seat is a local model
 
-The cast runs on **`qwen3:30b-a3b`** through Ollama, on your own machine. This is not a
+The cast runs on **`devstral:24b`** through Ollama, on your own machine. This is not a
 performance preference — it is what makes the claim checkable.
 
 A hosted model asked what happened this week may simply answer, and the transcript looks
 the same whether it searched or recited. A local model with a training cutoff cannot know
 about a story published four days ago. If the paper carries one, it looked.
 
-The model is a sparse mixture-of-experts rather than a dense model of the same size,
-which matters enormously on a machine where memory capacity is abundant and memory
-*bandwidth* is the constraint: 30B parameters total, ~3B active per token. Measured on an AMD
-Ryzen AI Max+ 395 with 121 GB of unified memory: **~46 tokens/second**, against a dense
-27B on the same box that took over ten minutes for a single turn. Every other sample in
-this repository dropped Ollama for exactly that reason.
+Devstral is an agentic instruct model, and it is here because it does **not** think.
+`qwen3:30b-a3b` sat in these seats first and writes better prose, but it is a reasoning
+model, and with tools in front of it the reasoning did not reliably terminate — turns of
+22, 58 and 79 minutes that emitted no copy at all. Measured on the real task (search,
+open the page, file the story) against live SearXNG: devstral 25 seconds, both tools,
+786 characters of sourced copy on the first attempt.
+
+**One model, not two.** An earlier version cast the editor and the desks on different
+models and was worse than either alone. Two models resident on one iGPU garble each
+other: on the same prompt, qwen3 alone answered 3 times in 4 in 7–45s, and with devstral
+also loaded returned **empty 3 times out of 3**, or took 79–220 seconds. If you swap a
+seat to another model here, expect that, and consider `OLLAMA_MAX_LOADED_MODELS=1`.
 
 ## Before you start
 
@@ -36,10 +42,10 @@ this repository dropped Ollama for exactly that reason.
 - **Ollama** reachable from the deployment's containers, with the model pulled:
 
 ```bash
-ollama pull qwen3:30b-a3b
+ollama pull devstral:24b
 ```
 
-- roughly 20 GB of free memory while a session runs
+- roughly 16 GB of free memory while a session runs
 
 No provider API key is needed. Nothing in this sample calls a hosted model.
 
@@ -48,10 +54,11 @@ No provider API key is needed. Nothing in this sample calls a hosted model.
 1. **Import the bundle.** `newsroom.pyr` carries the three personas, their briefs, the
    house style, and the five-phase flow.
 
-2. **Create the model connection.** Provider `ollama_chat`, model `qwen3:30b-a3b`, with
+2. **Create the model connection.** Provider `ollama_chat`, model `devstral:24b`, with
    the base URL your containers reach Ollama on — on podman that is usually the default
    gateway rather than `host.containers.internal`, which frequently does not resolve.
-   Bind all three personas to it.
+   Bind all three personas to it — one connection for the whole roster, so the box
+   never holds two models at once.
 
 3. **Register the search server**, from [`mcp.json`](mcp.json) beside this file.
 
@@ -116,16 +123,69 @@ DuckDuckGo serves a CAPTCHA, Brave, Startpage, Qwant and Yahoo block outright. A
 search returns **HTTP 200 with zero results**, which is indistinguishable from a model
 that chose not to search.
 
-`mcp.json` therefore names the engines this sample actually uses — **Hacker News** and
-**Wikinews**. Both answer, both are independent of the blocked set, and everything they
-return carries a publication date, which is what lets a story be checked. Technology and
-science skew toward the first, world and current affairs toward the second, which is why
-the paper has those two desks.
+`mcp.json` therefore names the engines this sample uses, and the choice decides whether
+the sample works at all. The big *web* engines refuse; their **news siblings are separate
+engines and are not blocked**. Measured here, one query each:
 
-Desks pass `recency: "week"` when they want news. Without it the top results for a
-well-covered subject are whatever ranks best, which is usually years old — on one
-measurement, results spanning a decade for a query that with a week's window returned
-that day's stories.
+| engine | results | with a time filter |
+|---|---|---|
+| `bing news` | 10 | 7 — the only one that honours it |
+| `duckduckgo news` | 25 | 0 |
+| `yahoo news` | 69 | 0 |
+| `qwant news` | 7 | — the only engine that **dates every result** |
+| `hackernews` | 30 | 3 |
+| `google news` | 0 | 0 |
+
+The set is those news engines plus Hacker News for the technology desk. Together: 72
+results for one query, 62 of them dated.
+
+**Desks do not pass `recency`.** News engines are fresh by construction, and the filter
+empties two of the four. This was learned the hard way: pointed at Hacker News and
+Wikinews alone, ranked by relevance, the freshest result the paper could find was **six
+weeks old**, and both desks correctly filed nothing, edition after edition.
+
+One trap worth knowing. An engine name SearXNG does not recognise **does not error — it
+silently searches the default set instead**. `ecosia`, `baidu news`, `brave news`,
+`yandex news` and `marginalia` each appeared to return 84 excellent results until the
+per-result `engine` field showed not one came from the engine asked for.
+
+## What this sample does not do well
+
+Honesty is cheaper than a surprise. The flow completes, the searching is real and the
+ledger proves it. The *copy* is another matter.
+
+These local models handle a single-actor task with tools well. What they handle badly is
+holding a **role while tool-calling in a multi-actor transcript**. The platform serialises
+the conversation as `Name: ...` turns, and a 24B model will cheerfully write everyone's
+lines — filing its story and then the editor's reply to it, in one message. Observed
+across runs: a desk inventing three stories rather than searching; a desk emitting the
+raw tool-definition JSON as message text instead of calling the tool.
+
+The flow is built so those failures are **visible rather than silent**, which is the part
+worth studying:
+
+- the `reporting` phase cannot close without recorded tool calls, and says so in a
+  `phase_requirement` event naming `produced` against `required`
+- `mcp_call_record` records searches independently of the prose, so "I searched and found
+  nothing" from a desk that never called the tool is contradicted by an empty ledger
+- an edition with two honest stories, or none, beats four padded ones, and the SPIKED
+  line at the foot says what was dropped
+
+Be warned that a bad run is worse than thin. Runs here have ended with an "edition" that
+was the line `Nadia Brekke: (` repeated until the generation ceiling cut it off — the
+model continuing the transcript's own `Name: ...` format instead of writing the paper.
+Across the last several runs the flow reached its terminal phase every time, in about
+three to twenty minutes, but the quality of what came out ranged from two properly
+sourced stories to that.
+
+**So: run this to watch the machinery, not to read the paper.** What is reliable here is
+everything the platform does — the phases advance, the requirement gate reports honestly,
+the searches happen and are recorded, nothing is fabricated into the ledger. What is not
+reliable is a 24B model's prose discipline across a multi-actor transcript.
+
+If you want an edition worth reading, point the connection at a hosted model. The ledger
+still proves the searching happened; you only lose the argument that a local model *could
+not have known* this week's news, which is what the local cast is here to demonstrate.
 
 ## Checking that it really did
 

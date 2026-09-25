@@ -8,9 +8,9 @@
     "effectful_tools": [],
     "require_confirmation": false,
     "options": {
-      "engines": "hackernews,wikinews"
+      "engines": "bing news,duckduckgo news,yahoo news,qwant news,hackernews"
     },
-    "note": "The bundled SearXNG. Two switches gate a search and BOTH are needed: each persona carries its own web_search flag (it travels in the .pyr), and this registration is the workspace's egress control, which a bundle deliberately cannot carry -- what a tenant may call out to is not the bundle author's decision. No max_calls_per_session: research is not rationed here. The engines are named because it matters: from an ordinary self-hosted address the big engines refuse (duckduckgo serves a CAPTCHA, brave and startpage and qwant block), and a refused search returns HTTP 200 with zero results, which is indistinguishable from a model that chose not to search. These two answer, and everything they return carries a date."
+    "note": "The bundled SearXNG. Two switches gate a search and BOTH are needed: each persona carries its own web_search flag (it travels in the .pyr), and this registration is the workspace's egress control, which a bundle deliberately cannot carry -- what a tenant may call out to is not the bundle author's decision. No max_calls_per_session: research is not rationed here. The engines are named because it decides whether this sample works at all. The big WEB engines refuse an ordinary self-hosted address (duckduckgo serves a CAPTCHA; brave, startpage, qwant and yahoo block), and a refused search returns HTTP 200 with zero results -- indistinguishable from a model that chose not to search. Their NEWS siblings are different engines and answer fine. That distinction is the whole game for a daily paper: measured here, the general set ranks by relevance and its freshest result was six weeks old, while these return today. The set is news engines plus Hacker News for the tech desk; qwant news earns its place by dating every result, which the others mostly do not and a story has to carry. Beware when editing: SearXNG does not error on an engine name it does not know -- it silently searches its default set, so a typo looks like a spectacularly good engine until you check which engine each result actually came from."
   },
   {
     "key": "web_fetch",
