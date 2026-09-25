@@ -2,12 +2,24 @@
   {
     "key": "web_search",
     "url": "http://searxng:8080",
-    "enabled_tools": ["search"],
+    "enabled_tools": [
+      "search"
+    ],
     "effectful_tools": [],
     "require_confirmation": false,
     "options": {
       "engines": "hackernews,wikinews"
     },
     "note": "The bundled SearXNG. Two switches gate a search and BOTH are needed: each persona carries its own web_search flag (it travels in the .pyr), and this registration is the workspace's egress control, which a bundle deliberately cannot carry -- what a tenant may call out to is not the bundle author's decision. No max_calls_per_session: research is not rationed here. The engines are named because it matters: from an ordinary self-hosted address the big engines refuse (duckduckgo serves a CAPTCHA, brave and startpage and qwant block), and a refused search returns HTTP 200 with zero results, which is indistinguishable from a model that chose not to search. These two answer, and everything they return carries a date."
+  },
+  {
+    "key": "web_fetch",
+    "url": "https://fetch.local/",
+    "enabled_tools": [
+      "fetch"
+    ],
+    "effectful_tools": [],
+    "require_confirmation": false,
+    "note": "Reading a page, as distinct from finding one. A search returns a title, a URL and a snippet -- enough to know a story exists, not enough to report it, and certainly not enough to quote anybody. This lets a desk open the article it found. Registered separately from web_search on purpose: fetching an arbitrary URL the model chose is a wider door than querying one search host, so an operator can open the narrow one alone. The transport refuses anything that resolves off the public internet -- loopback, private ranges, and the cloud metadata endpoint at 169.254.169.254 -- re-checked on every redirect, because a public host is free to redirect to 127.0.0.1. The url here is unused: the transport is chosen by the key."
   }
 ]

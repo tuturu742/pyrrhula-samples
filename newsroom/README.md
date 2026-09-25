@@ -23,9 +23,9 @@ A hosted model asked what happened this week may simply answer, and the transcri
 the same whether it searched or recited. A local model with a training cutoff cannot know
 about a story published four days ago. If the paper carries one, it looked.
 
-The model is a sparse mixture-of-experts rather than a dense model of the same size, and
-on a machine where memory capacity is abundant and memory *bandwidth* is the constraint
-that matters enormously: 30B parameters total, ~3B active per token. Measured on an AMD
+The model is a sparse mixture-of-experts rather than a dense model of the same size,
+which matters enormously on a machine where memory capacity is abundant and memory
+*bandwidth* is the constraint: 30B parameters total, ~3B active per token. Measured on an AMD
 Ryzen AI Max+ 395 with 121 GB of unified memory: **~46 tokens/second**, against a dense
 27B on the same box that took over ten minutes for a single turn. Every other sample in
 this repository dropped Ollama for exactly that reason.
