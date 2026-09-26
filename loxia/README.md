@@ -109,20 +109,32 @@ it.
 
 ## Setting it up
 
-```bash
-python scripts/seed_samples.py \
-  --secrets-dir /path/to/secrets \
-  --samples-dir /path/to/pyrrhula-samples \
-  --samples loxia=pyrrhula
-```
+1. **Sign up**, choose **Workflows → Software Development**, add a model connection and
+   import [`../pyrrhula/pyrrhula.pyr`](../pyrrhula/pyrrhula.pyr) — steps 1 to 5 of the
+   [pyrrhula sample](../pyrrhula/README.md), which this one borrows its cast from.
+2. **Register the build runtime.** **Repos → Build runtimes**: name `rust-mpv`, image
+   `localhost:5000/loxia-build:1` (the image you built above), no setup commands.
+3. **Register the repository.** **Repos → Register**, with the values from
+   [`repos.json`](repos.json) — the file is the form, as data:
 
-`loxia=pyrrhula` means "a tenant called `loxia`, from the `pyrrhula` bundle's cast". The
-seed then reads `repos.json` from this directory, registers the runtime it names, seals
-your token, and registers the repository.
+   | field | value |
+   |---|---|
+   | Name / Key | `loxia` |
+   | Import from | `https://github.com/tuturu742/loxia-player` |
+   | Access token | your GitHub token (Contents: write, Pull requests: write) |
+   | Git provider | GitHub |
+   | Runtime | `rust-mpv` |
+   | Test command | `cargo test --workspace --lib --bins --tests` |
+   | Build command | `cargo build --release --bin loxia-player && mkdir -p .pyrpkg && cp target/release/loxia-player .pyrpkg/ && tar czf loxia.tar.gz -C .pyrpkg .` |
+   | Artifact file | `loxia.tar.gz` |
+   | Preview recipe | image `localhost:5000/loxia-preview:5`, command `chmod +x ./loxia-player && ttyd -p 8080 -W ./loxia-player`, port `8080`, environment `TERM=xterm-256color` |
 
-By hand, it is the same four things: import the cast bundle, register the runtime under
-**Repos → Build runtimes**, add the repository under **Repos → Register repo** with its
-token, and set its test and build commands.
+   The token is sealed on save and never shown again. Registration clones the repository
+   into the hosted store; **Analyze repos** afterwards builds the knowledge graph the
+   planning phases read.
+4. **Start a session** on the *Plan, implement, review* flow with the architect as
+   supervisor and the bench as participants, and select the `loxia` repository when you
+   create it — that is what makes delegated work available to the phases that ask for it.
 
 ## What it should be able to do
 

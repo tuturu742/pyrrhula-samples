@@ -1,8 +1,10 @@
 # Pyrrhula samples
 
-Four ready-made workspaces you can import into a fresh Pyrrhula deployment and run. Each
-one is a single `.pyr` file plus a step-by-step README that assumes you have never used
-Pyrrhula before.
+Seven ready-made workspaces you can import into a fresh Pyrrhula deployment and run. Each
+one is a `.pyr` file plus a step-by-step README that assumes you have never used Pyrrhula
+before, and every step is something you do in the product — no sample asks you to run a
+script. The one exception is standing up a piece of software that is genuinely separate
+(the mystery's forensic lab, a local model server).
 
 | Sample | What it shows | Agents |
 |---|---|---|
@@ -56,7 +58,7 @@ order of the first two matters:
 
 ## Several samples in one organization
 
-You can import all five into one organization — give each its own workspace. Each
+You can import all of them into one organization — give each its own workspace. Each
 workspace pins the vocabulary its sample was authored under, so the murder mystery keeps
 *Game Master* and *Player* while the campaign keeps *Facilitator* and *Contributor*,
 whatever order you import in.

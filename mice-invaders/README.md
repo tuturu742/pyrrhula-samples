@@ -74,5 +74,6 @@ studio-conventions handbook, which every agent retrieves.
 This sample is the conversation, not the repository. To have the agents actually commit
 code, run tests and produce a playable build, register a repo in **Repos** and select it
 when you create the session — then the developer can be given real delegated work against
-it. That path needs an execution engine configured on your deployment (Docker/Podman,
-Kubernetes or AWS), which is a deployment concern rather than something a bundle can carry.
+it. That path needs an execution engine configured on your deployment (a Docker or Podman
+socket, or Kubernetes), which is a deployment concern rather than something a bundle can
+carry.

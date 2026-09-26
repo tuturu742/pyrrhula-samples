@@ -60,13 +60,24 @@ No provider API key is needed. Nothing in this sample calls a hosted model.
    Bind all three personas to it — one connection for the whole roster, so the box
    never holds two models at once.
 
-3. **Register the search server**, from [`mcp.json`](mcp.json) beside this file.
+3. **Register the search server.** On the workspace, **MCP servers** → register, with
+   the values from [`mcp.json`](mcp.json) beside this file:
+
+   | field | value |
+   |---|---|
+   | key | `web_search` |
+   | url | `http://searxng:8080` (the bundled SearXNG's in-network address) |
+   | allowed tools | `search` |
+   | calls/session | blank — research is not rationed here |
+   | options | `{"engines": "bing news,duckduckgo news,yahoo news,qwant news,hackernews"}` |
+
+   Then a second one so a desk can open what it found: key `web_fetch`, url
+   `https://fetch.local/` (unused — the transport is chosen by the key), allowed tools
+   `fetch`. The engines line decides whether this sample works at all; see below.
 
 4. **Tell the session what day it is.** Set the agenda to today's date before starting.
    The cast cannot know it, and a desk that guesses the year searches for the wrong one —
    observed, on the first run: `recent technology news 2023`.
-
-`scripts/seed_samples.py` in the platform repository does steps 1 to 3 for you.
 
 ## The two switches
 

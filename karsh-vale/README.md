@@ -51,13 +51,24 @@ referee and each other rather than marching in a fixed rota.
 
 ## Run it
 
-1. **Import** `karsh-vale.pyr` — Workspace → *Import bundle*. It brings the four
-   personas, the rulebook, all four knowledge sources, both scope bands and the flow.
-2. **Point the personas at a model.** Each carries its own sampling overrides
-   (the referee cool at 0.6, the players looser) so a shared connection still produces
-   four distinct voices.
-3. **Start a session** on the *The Hollow Crown of Karsh Vale* flow. The referee opens
-   the scene; you can watch or take a seat yourself.
+1. **Sign up.** Register with any organization name; you land in **Default Workspace**
+   as its steward.
+2. **Workflows → Tabletop RPG**, *before* importing. The bundle names it and the import
+   would pin it anyway; choosing it first also keeps the bundle's own dice binding — the
+   Basic Fantasy rule system — as the one the randomizer uses, rather than the pack's
+   generic d20.
+3. **Add a model connection.** **Personas → Model profiles → New model profile**:
+   provider, model and your API key (built and tested on DeepSeek, `deepseek-chat`).
+4. **Import** `karsh-vale.pyr` — on the workspace, **Export / import** (top right). It
+   brings the four personas, the rulebook, all four knowledge sources, both scope bands,
+   the rule system and the flow.
+5. **Point the personas at your connection.** **Personas** → open each of the four → set
+   **Connection (model agent)**. Each carries its own sampling overrides (the referee
+   cool at 0.6, the players looser) so a shared connection still produces four distinct
+   voices.
+6. **Start a session** on the *The Hollow Crown of Karsh Vale* flow, with the referee as
+   supervisor and the three players as participants. The referee opens the scene; you
+   can watch or take a seat yourself.
 
 Three scenes, then the referee brings it to a resting point with the real decision still
 in front of the party. There is deliberately no "correct" ending written down.
@@ -89,12 +100,10 @@ already in context, and a player who reads it will reasonably decline to roll a 
 it already appears to have. Archiving the first session does not help — archiving hides a
 session, it does not remove what the session made.
 
-For a genuinely fresh campaign, use a fresh workspace, or purge and reseed the tenant:
-
-```bash
-python -m core.tenancy.purge --tenant karsh-vale --yes
-python scripts/seed_samples.py --secrets-dir … --samples-dir … --samples karsh-vale
-```
+For a genuinely fresh campaign, use a fresh workspace: create one, import the bundle into
+it, point the cast at your connection again, and archive the old one when you are done
+with it. Archiving keeps its history; nothing in the product erases a workspace, by
+design.
 
 ---
 
