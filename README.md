@@ -17,9 +17,7 @@ script. The one exception is standing up a piece of software that is genuinely s
 | [newsroom](newsroom/) | A two-desk daily paper, every seat on a local model, that has to publish this week's news with a source and a date on every story — the one sample whose output is false if the internet was not reached. Read its **What this sample does not do well** first: the searching is real and provable, but the prose is unreliable — run it to watch the machinery, not to read the paper. | 3 |
 
 **Start with [hagnaryd-mystery](hagnaryd-mystery/)** if you want to see what makes
-Pyrrhula different from a group chat with several prompts in it — or read
-[an annotated transcript of a finished session](hagnaryd-mystery/TRANSCRIPT.md) first,
-with the engine's real per-turn conceal/hint decisions inline, before installing anything.
+Pyrrhula different from a group chat with several prompts in it.
 
 ## What a `.pyr` file is
 
