@@ -4,7 +4,8 @@
 #   kubectl -n pyrrhula create configmap evidence-server --from-file=evidence-server.py
 #   kubectl apply -f evidence-server.k8s.yaml
 #
-# then register it on the workspace (Workspace -> MCP servers -> Add):
+# then register it in the UI (World / Campaigns -> the workspace where you imported
+# the bundle -> Settings -> MCP servers -> Register):
 #
 #   key            evidence
 #   url            http://evidence-lab:8765

@@ -94,7 +94,8 @@ Run it on the machine that hosts your deployment:
 python3 evidence-server.py --port 8765
 ```
 
-Then attach it: **Workspace → MCP servers → Add**
+Then attach it in the UI: **World / Campaigns → the workspace where you imported the
+bundle → Settings → MCP servers → Register**
 
 | field | value |
 |---|---|

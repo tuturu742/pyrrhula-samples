@@ -60,8 +60,8 @@ No provider API key is needed. Nothing in this sample calls a hosted model.
    Bind all three personas to it — one connection for the whole roster, so the box
    never holds two models at once.
 
-3. **Register the search server.** On the workspace, **MCP servers** → register, with
-   the values from [`mcp.json`](mcp.json) beside this file:
+3. **Register the search server.** Open the workspace where you imported the bundle,
+   then **Settings → MCP servers → Register**, with the values from [`mcp.json`](mcp.json) beside this file:
 
    | field | value |
    |---|---|

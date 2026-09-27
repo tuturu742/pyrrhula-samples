@@ -8,7 +8,8 @@ Run it (stdlib only, no installs):
 
     python3 evidence-server.py --port 8765
 
-then register it on the workspace (Workspace -> MCP servers -> Add):
+then register it in the UI (World / Campaigns -> the workspace where you imported
+the bundle -> Settings -> MCP servers -> Register):
 
     key            evidence
     url            http://<host-as-your-deployment-sees-it>:8765
