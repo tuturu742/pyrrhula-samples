@@ -79,9 +79,7 @@ the cast, the flow) is original and MIT like the rest. See the sample's own READ
 the full attribution.
 
 Pyrrhula itself, the engine you import them into, is
-[AGPL-3.0-only](https://github.com/tuturu742/pyrrhula). Using it to run these samples
-carries no obligation; modifying the *engine* and offering it to others over a network
-does.
+[MIT](https://github.com/tuturu742/pyrrhula) as well.
 
 ## A note on cost
 
