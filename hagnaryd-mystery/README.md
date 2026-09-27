@@ -100,11 +100,18 @@ bundle → Settings → MCP servers → Register**
 | field | value |
 |---|---|
 | key | `evidence` |
-| url | `http://host.containers.internal:8765` (podman compose) · `http://host.docker.internal:8765` (Docker Desktop) · `http://evidence-lab:8765` (Kubernetes, see below) |
+| url | `http://<your machine's LAN IP>:8765` (compose — e.g. `http://192.168.1.20:8765`, the address `ip -4 addr` shows on your wifi or ethernet interface) · `http://evidence-lab:8765` (Kubernetes, see below) |
 | enabled tools | `evidence_check` |
 | calls/session | `2` |
 
 Leave *effectful* off — the lab only answers questions.
+
+Then press **Test** next to the new server. It should say reachable and list
+`evidence_check`. If it says the address is unreachable, the api container cannot route
+to it: `localhost` is the container itself, and `host.containers.internal` resolves on
+rootless podman but usually does not route from a compose network — use the LAN address.
+Without this check the inspector still plays, but without the lab: she narrates a
+"radio link down" instead of calling it, and nothing else says why.
 
 **calls/session is the whole budget.** Set it to `2` and the inspector gets two lab
 requests per interview; leave it blank and she gets as many as she likes. Nothing else

@@ -61,7 +61,7 @@ No provider API key is needed. Nothing in this sample calls a hosted model.
    never holds two models at once.
 
 3. **Register the search server.** Open the workspace where you imported the bundle,
-   then **Settings → MCP servers → Register**, with the values from [`mcp.json`](mcp.json) beside this file:
+   then **Settings → MCP servers → Register** (and **Test** once it is listed), with the values from [`mcp.json`](mcp.json) beside this file:
 
    | field | value |
    |---|---|
