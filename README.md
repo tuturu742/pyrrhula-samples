@@ -1,6 +1,6 @@
 # Pyrrhula samples
 
-Seven ready-made workspaces you can import into a fresh Pyrrhula deployment and run. Each
+Eight ready-made workspaces you can import into a fresh Pyrrhula deployment and run. Each
 one is a `.pyr` file plus a step-by-step README that assumes you have never used Pyrrhula
 before, and every step is something you do in the product — no sample asks you to run a
 script. The one exception is standing up a piece of software that is genuinely separate
@@ -9,7 +9,8 @@ script. The one exception is standing up a piece of software that is genuinely s
 | Sample | What it shows | Agents |
 |---|---|---|
 | [hagnaryd-mystery](hagnaryd-mystery/) | Six agents, each with private briefs the others cannot see. A closed-house murder where the culprit has to survive an interrogation. | 6 |
-| [karsh-vale](karsh-vale/) | A Basic Fantasy RPG one-shot where lore sits in three bands — common talk, guild knowledge, and the referee's own history — and no player character can retrieve what their character never learned. | 4 |
+| [karsh-vale](karsh-vale/) | A Basic Fantasy RPG one-shot where lore sits in three bands — common talk, guild knowledge, and the referee's own history — and no player character can retrieve what their character never learned. The simpler of the two tabletop samples. | 4 |
+| [greyfen-barrows](greyfen-barrows/) | The same game at full size: an eight-beat campaign carrying the whole Basic Fantasy rulebook, 482 sections, so encounters use creatures that are actually in the book. Written end to end by Pyrrhula's own workspace assistant rather than by hand. | 4 |
 | [coffee-campaign](coffee-campaign/) | A working session that produces a launch plan, where two people at the table hold commercially confidential facts they must not put in public copy. | 4 |
 | [mice-invaders](mice-invaders/) | A lead and a developer building a small browser game, one increment at a time. | 2 |
 | [loxia](loxia/) | A real repository on a git host: the bench plans against an analyzed codebase, opens pull requests, and refuses to merge a red build. | 6 |
@@ -71,12 +72,14 @@ keep them completely separate, one organization per sample also works.
 These samples are **MIT** ([LICENSE](LICENSE)). Import them, edit them, build your own
 case on top of one, ship it commercially — nothing comes back to us.
 
-**One exception.** [karsh-vale](karsh-vale/) contains rules text abridged from the
-[Basic Fantasy RPG](https://www.basicfantasy.org/) by Chris Gonnerman, which is
-**CC BY-SA 4.0**. Those rules entries — and derivatives of them — carry that licence and
-its share-alike obligation, not MIT. Everything else in that sample (the Vale, the Crown,
-the cast, the flow) is original and MIT like the rest. See the sample's own README for
-the full attribution.
+**Two exceptions.** [karsh-vale](karsh-vale/) and [greyfen-barrows](greyfen-barrows/)
+contain rules text from the [Basic Fantasy RPG](https://www.basicfantasy.org/) by Chris
+Gonnerman — abridged in the first, entire in the second — which is **CC BY-SA 4.0**. Those
+rules entries, the `basic_fantasy` rule system, and derivatives of either carry that licence
+and its share-alike obligation, not MIT. Everything else in both samples (the settings, the
+casts, the flows) is original and MIT like the rest. `tools/bfrpg_odt_to_entries.py` shows
+how the full rulebook was converted, so the derivation is checkable. See each sample's own
+README for the full attribution.
 
 Pyrrhula itself, the engine you import them into, is
 [MIT](https://github.com/tuturu742/pyrrhula) as well.
