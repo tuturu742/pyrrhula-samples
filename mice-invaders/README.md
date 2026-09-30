@@ -71,9 +71,11 @@ studio-conventions handbook, which every agent retrieves.
 
 ## Taking it further
 
-This sample is the conversation, not the repository. To have the agents actually commit
-code, run tests and produce a playable build, register a repo in **Repos** and select it
-when you create the session — then the developer can be given real delegated work against
-it. That path needs an execution engine configured on your deployment (a Docker or Podman
-socket, or Kubernetes), which is a deployment concern rather than something a bundle can
-carry.
+This sample is the conversation, not the repository. The version that does the work is
+**[mice-invaders-delegated](../mice-invaders-delegated/)**: the same pair, a real Godot
+repository, a developer working through a coding harness that reads the project and runs
+the tests, and a pull request at the end of it. It needs an execution engine configured on
+your deployment (a Docker or Podman socket, or Kubernetes) and a runtime image you build
+yourself, which is why it is a separate sample rather than a paragraph here.
+
+Read this one to see how the pair reasons; read that one to see a branch come out of it.
