@@ -1,4 +1,4 @@
-# TinyFingers Desktop
+# Toddler Keyboard Chaos
 
 A lead and a senior developer building a real application in a real repository: a
 fullscreen smash toy for toddlers, as an Electron desktop app. The developer works through
@@ -35,7 +35,7 @@ review.
 
 ## Step 1 — Fork the repository
 
-Fork **[tuturu742/tinyfingers-desktop](https://github.com/tuturu742/tinyfingers-desktop)**.
+Fork **[tuturu742/toddler-keyboard-chaos](https://github.com/tuturu742/toddler-keyboard-chaos)**.
 
 Its `main` is deliberately a scaffold: a `package.json`, an empty `test/`, a licence and a
 README. The working application lives in a pull request on the upstream repo, built by this
@@ -76,7 +76,7 @@ grants repository access at all; importing first leaves the cast without it.
 ## Step 6 — Import the project
 
 Workspace → **Export / import** (top right) → upload
-[`tinyfingers-desktop.pyr`](tinyfingers-desktop.pyr).
+[`toddler-keyboard-chaos.pyr`](toddler-keyboard-chaos.pyr).
 
 The bundle carries **the cast and nothing else**: 2 personas, `Lead Wren` and
 `Senior Developer Pike`. No flow, because selecting the workflow in step 4 already provided
@@ -114,9 +114,9 @@ a shell and a model writing files blind.
 
 | Field | Value |
 |---|---|
-| Key | `tinyfingers` |
-| Name | `TinyFingers Desktop` |
-| Source URL | `https://github.com/<you>/tinyfingers-desktop` |
+| Key | `keyboard-chaos` |
+| Name | `Toddler Keyboard Chaos` |
+| Source URL | `https://github.com/<you>/toddler-keyboard-chaos` |
 | Access token | the token from step 2 |
 | Runtime | `node20` |
 | Test command | `npm test` |
@@ -146,9 +146,9 @@ New session:
 - **Agenda**:
 
 ```
-Build TinyFingers Desktop in one increment: a standalone Electron app in the spirit of
-tinyfingers.net -- a fullscreen smash toy where every keypress and click paints something,
-and a toddler cannot get out of it by accident.
+Build Toddler Keyboard Chaos in one increment: a standalone Electron app -- a fullscreen
+smash toy where every keypress and click paints something, and a toddler cannot get out of
+it by accident.
 
 Create exactly ONE work item covering the whole application, with a description that
 stands alone -- a coding agent reads only it -- asking for all of:
@@ -230,6 +230,10 @@ connection its persona was given, which is why the cap in step 9 applies to it a
 - **Turn the harness off** on `Senior Developer Pike` and run the same agenda. The one-shot
   path asks a model for whole files and never runs them; comparing the two diffs is the
   clearest demonstration of what a harness buys.
+- **Stop reinstalling the harness.** Every run installs opencode into `node20` first —
+  about a minute. **Repos → Images → Write a Dockerfile → Start from: Node 20 with opencode
+  baked in**, build it on a builder your administrator declared, and pick the image as the
+  repo's runtime: delegations then start working at once (`docs/image-builds.md`).
 - **Restrict what the container may reach.** `docs/exec-engines.md` covers the egress
   allowlist and the CPU/memory limits — worth turning on before you let an agent run
   arbitrary commands on a machine you care about.
