@@ -47,8 +47,17 @@ to run one evening. The referee still adjudicates; nobody is guessing at the ari
 told to call it and narrate what it gave — including when it goes badly. A result that was
 rolled is the record; a number a model invented is not.
 
-**Reactive turn order.** The players' phase uses `reactive` order, so they answer the referee
-and each other rather than marching in a fixed rota.
+Percentile thief skills succeed by rolling *under* a number, while the
+record counts a roll at or above its target as a success — so the always-on dice note tells
+the referee to roll them against 101 minus the percentage (Pip listening at 30% rolls
+`1d100` against 71). Same odds, and an outcome in the record that matches the story.
+
+**Addressed, then reactive, turn order.** In the players' phase each character gets the
+floor once, starting with whoever the referee just named (`addressed` order); then one
+more turn goes to whoever *that* exchange named (`reactive`). So they answer the referee
+and each other rather than marching in a fixed rota — and nobody is left out. (A purely
+reactive phase follows names, and two characters who keep naming each other can hold the
+floor for a whole evening while the third never speaks.)
 
 ---
 
@@ -58,7 +67,7 @@ and each other rather than marching in a fixed rota.
 |---|---|---|
 | Length | one evening, three scenes | eight beats: creation, introductions, two fights, an interlude, a puzzle, a boss, an epilogue |
 | Rules | 9 abridged entries | the whole rulebook, 482 sections, every spell and monster its own entry |
-| Bundle | 117 KB | 2.3 MB |
+| Bundle | 115 KB | 2.3 MB |
 | Lore bands | three: public, guild, referee | two: public and referee |
 | Written by | a person | the product's own assistant, from a brief |
 | Best for | seeing levels of lore work, quickly | seeing a real rulebook reach the turns that need it |
@@ -78,12 +87,19 @@ needs the other.
 3. **Add a model connection.** **Personas → Model profiles → New model profile**: provider,
    model and your API key (built and tested on DeepSeek, `deepseek-chat`).
 4. **Import** `karsh-vale.pyr` — on the workspace, **Export / import** (top right). It brings
-   the four personas, the handbook, all four knowledge sources, both scope bands, the rule
-   system and the flow.
+   the four personas, the handbook, all five knowledge sources (rules, common lore, guild
+   lore, referee lore and a little Vale miscellany), both scope bands, the rule system and
+   the flow.
 5. **Let the import finish indexing before starting a session.** A freshly imported workspace
-   is playable before it is searchable, and a session started immediately retrieves nothing
-   for its first turns. Watch **Workspace → Settings → Knowledge budget**; once it reports
-   room in each class, you are ready.
+   is playable before it is searchable: the import queues a background job that embeds the
+   lore, and a session started before it finishes retrieves nothing by meaning for its first
+   turns. Nothing in the UI shows that job's progress; on a deployment whose retrieval models
+   are already installed it takes well under a minute, so doing step 6 first is enough of a
+   wait. (**Workspace → Settings → Knowledge budget** is a different check — whether each
+   phase has room to retrieve at all — and it is not an indexing indicator. For this flow it
+   always shows a few amber "tight" notes — the misc and rules shares of some phases are
+   small on purpose, because those phases are about scene and lore rather than rules —
+   and they are expected.)
 6. **Point the personas at your connection.** **Personas** → open each of the four → set
    **Connection (model agent)**. Each carries its own sampling overrides so a shared
    connection still produces four distinct voices.
@@ -95,21 +111,38 @@ front of the party. There is deliberately no "correct" ending written down.
 
 ### Seeing the bands work
 
-Ask the same question of two characters. Ask Bram what he makes of the stonework and he can
-tell you the last builders were sealing something *in*; ask Pip and he genuinely has nothing
-— not evasion, just absence. Or open **Inspect context** on a referee turn and a player turn
-and compare which entries are in each.
+Watch who reads the stone. When the party reaches the Crown, Bram can tell the others the
+last builders were sealing something *in*, and Linnea can read the ward-cant over the
+passage; Pip genuinely has nothing to add — not evasion, just absence.
 
-## The characters stay
+Then check it rather than trust it. Open **Inspect context** on a turn of each character
+(the same record is `GET /api/messages/{id}/manifest`, one row per retrieved chunk) and
+compare the entries:
 
-The party is still there next session. Characters, and each player's binding to theirs,
-belong to the **workspace**, not to the session that rolled them — only the transcript is
-session-scoped. Start a second session in this workspace and Bram is still Bram, with the hit
-points the last fight left him.
+| Turn | What its context can contain |
+|------|------------------------------|
+| Pip | the rules, *Karsh Vale — what everyone knows*, the Vale miscellany |
+| Bram, Linnea | all of that, plus *masons_marks* and *binding_scripts* from the guild source |
+| the Referee | all of that, plus *truth_of_the_crown* and *campaign_beats* |
 
-It is also the thing to know before running the sample from the top twice. A second run does
-not start with blank sheets: the players open with the first party already in context. For a
-genuinely fresh start, import the bundle into a fresh workspace.
+A referee-only entry in a player's turn, or a guild entry in Pip's, would be a leak.
+
+### Seeing the dice
+
+Every roll the referee makes through the tool is a ResolutionRecord: the expression, the
+dice, the total, the target and the outcome, written by the server. The session's
+**recap report** lists them under *Recorded facts*, ahead of any narration, so you can
+check the referee's prose against what was actually rolled.
+
+## The characters are written, not tracked
+
+Here the three characters live in their persona briefs — stats, saves, gear and voice —
+and the bundle carries no character sheets. That keeps the one-shot small, and it has two
+consequences worth knowing. The dice tool rolls the bare die, and the referee moves the
+bonus the brief states onto the target (Bram's +3 to hit against AC 13 is a `1d20`
+against 10); and hit points are the referee's to keep in the fiction, not a
+field that carries into the next session. A second session in the same workspace starts
+the party fresh from their briefs.
 
 ---
 
