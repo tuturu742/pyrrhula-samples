@@ -235,9 +235,10 @@ arrows move the cat, Space fires, Enter restarts.
 > **The game needs HTTPS, or `localhost`.** A Godot web build refuses to start anywhere
 > else, with *"Secure Context - Check web server configuration (use HTTPS)"*. Installed on
 > the machine you are using, open Pyrrhula as `http://localhost:5173` and the link works.
-> Installed on another host, put it behind HTTPS — or, just to look, forward a local port
-> to it (`ssh -L 5173:localhost:5173 <host>`) and open the link with `localhost` in place
-> of the host's address.
+> Installed on another host, serve it over HTTPS: on the release images and in Portainer
+> that is `PYRRHULA_TLS=self-signed` plus `PYRRHULA_TLS_SERVER_NAME=<the host's address>`
+> (Pyrrhula's install guide, *HTTPS*). Accept the browser's certificate warning once and
+> the link works for anyone who does the same.
 
 ---
 
