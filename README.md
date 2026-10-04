@@ -1,6 +1,6 @@
 # Pyrrhula samples
 
-Ten ready-made workspaces you can import into a fresh Pyrrhula deployment and run. Each
+Nine ready-made workspaces you can import into a fresh Pyrrhula deployment and run. Each
 one is a `.pyr` file plus a step-by-step README that assumes you have never used Pyrrhula
 before, and every step is something you do in the product — no sample asks you to run a
 script. The one exception is standing up a piece of software that is genuinely separate
@@ -12,9 +12,8 @@ script. The one exception is standing up a piece of software that is genuinely s
 | [karsh-vale](karsh-vale/) | A Basic Fantasy RPG one-shot where lore sits in three bands — common talk, guild knowledge, and the referee's own history — and no player character can retrieve what their character never learned. The simpler of the two tabletop samples. | 4 |
 | [greyfen-barrows](greyfen-barrows/) | The same game at full size: an eight-beat campaign carrying the whole Basic Fantasy rulebook, 482 sections, so encounters use creatures that are actually in the book. Written end to end by Pyrrhula's own workspace assistant rather than by hand. | 4 |
 | [coffee-campaign](coffee-campaign/) | A working session that produces a launch plan, where two people at the table hold commercially confidential facts they must not put in public copy. | 4 |
-| [mice-invaders](mice-invaders/) | A lead and a developer building a small browser game, one increment at a time — the *talking* version, no repository and no execution engine needed. | 2 |
-| [tinyfingers-desktop](tinyfingers-desktop/) | A lead and a senior developer building a real desktop app in a forked repository, where the developer works through a **coding harness** — an agent loop with a shell that reads, edits and runs the tests before anything is committed. Ends in a pull request on your own fork, reviewed under a second identity. | 2 |
-| [mice-invaders-delegated](mice-invaders-delegated/) | The same loop on a runtime Pyrrhula does not ship: Godot 4, tests run headless, and a container image you build and host yourself. The building version of `mice-invaders` above. | 2 |
+| [mice-invaders](mice-invaders/) | A lead and a developer building a small game in two parts: first they talk an increment through (no repository needed), then the developer builds it for real in a Godot repository through a coding harness, runs the tests and opens a pull request. The bundle carries the Godot image, so there is nothing to build. | 2 + 2 |
+| [toddler-keyboard-chaos](toddler-keyboard-chaos/) | A lead and a senior developer building a real desktop app in a forked repository, where the developer works through a **coding harness** — an agent loop with a shell that reads, edits and runs the tests before anything is committed. Ends in a pull request on your own fork, reviewed under a second identity. | 2 |
 | [loxia](loxia/) | A real repository on a git host: the bench plans against an analyzed codebase, opens pull requests, and refuses to merge a red build. | 6 |
 | [pyrrhula](pyrrhula/) | Pyrrhula working on its own codebase: an architect, a tiered bench of four developers and QA, holding the project's invariants. | 6 |
 | [newsroom](newsroom/) | A two-desk daily paper, every seat on a local model, that has to publish this week's news with a source and a date on every story — the one sample whose output is false if the internet was not reached. Read its **What this sample does not do well** first: the searching is real and provable, but the prose is unreliable — run it to watch the machinery, not to read the paper. | 3 |
