@@ -137,9 +137,9 @@ The combat beats run several rounds with the referee taking a turn between them.
 - **Inspect context** on any message. The lore entries differ turn to turn, and the rules
   entries are the ones the turn was about. A rules entry marked `keyed` was woken by its title
   appearing in the previous message — *Skeleton* the turn after the referee puts skeletons at
-  the door. Keys match as plain substrings, so expect the odd false friend too: "hearth" wakes
-  *Elemental, Earth* and "firelight" wakes *Elemental, Fire*. The rerank sorts them below the
-  entries the turn is actually about.
+  the door. A key matches a whole word (plurals and possessives included), so "skeletons"
+  wakes *Skeleton* but "hearth" does not wake *Elemental, Earth*. The rerank sorts the keyed
+  entries among the ones the turn is actually about.
 - **A referee turn against a player turn.** The two `gm_` entries are in one and not the other,
   every time.
 

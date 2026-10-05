@@ -14,52 +14,39 @@ visible at a glance.
 That is the point of this sample: it is the one whose output is false if the internet was
 not reached.
 
-## Which model: a readable paper, or a provable one
+## The cast: one local model, through Ollama
 
-There are two honest ways to cast this table, and they prove different things.
+The whole roster — chief editor and both desks — runs on **`devstral:24b`** through
+Ollama, on one connection. A local model is the right cast for this sample because its
+training cutoff makes the claim provable: Devstral cannot know about a story published
+this morning, so if the paper carries one, it looked.
 
-**A hosted model gives you the paper.** The recommended cast is **DeepSeek V4 Pro**
-(`deepseek-v4-pro`), one connection for all three seats. On the 4 October 2026 sweep it
-ran the whole flow in under five minutes: 21 searches in the ledger, two sourced and
-dated stories (a Strait of Hormuz tanker attack with four source URLs, Starship's first
-orbit with five), two `REWRITE` rulings with reasons, a rewrite that answered them, and
-a formatted edition with a *Spiked:* line at the foot. That edition is what the
-`composed_document` report renders to PDF, and it is what this README's steps produce.
+What it produced on the 5 October 2026 sweep, on a single Radeon 8060S iGPU, in three
+minutes flat: eight tool calls in the ledger (four searches, four page fetches), two
+desks each filing a story found by search and read from the fetched page — a death
+from plague exposure at a laboratory in Irkutsk (SVT, published that morning) and a new
+US federal task force on artificial intelligence (Fox 5 Atlanta, the day before) — the
+editor ruling `SPIKE` on one and `REWRITE` on the other with a reason each, the spiked
+desk answering "Spiked, understood.", and an edition with one story, its URL and date,
+and a SPIKED line naming what was dropped. Every URL in it resolves, and the dates on
+the pages match the dates the desks printed.
 
-What a hosted model cannot prove is that it *needed* to search. Asked what happened this
-week, it may answer from weights that are newer than you think, and the transcript looks
-the same either way. The proof that it searched is the `mcp_call_record` ledger — which is
-real, and enough for most purposes — not the copy.
+A word on what took three sweeps to learn. Two earlier passes concluded that a 24B model
+"cannot hold a role while tool-calling": the opening turn repeated one sentence to the
+token ceiling, the desks answered in word salad. None of that was the model. The same
+requests sent straight to Ollama produced the same garbage on the GPU and a clean tool
+call on the CPU; the ROCm backend was corrupting every generation on that chip. With
+Ollama on its Vulkan backend the model answers the way a capable model does. If a local
+run looks like nonsense, suspect the GPU path before the model — *Before you start*
+says what to check.
 
-**A local model gives you the proof.** `devstral:24b` through Ollama has a training
-cutoff and cannot know about a story published four days ago; if the paper carries one,
-it looked. That is a stronger claim, and it is why the local cast is kept here as the
-alternative. It is also, measured, a much worse newspaper:
+**One connection, one request at a time.** An earlier version cast the editor and the
+desks on different local models and was worse than either alone: two models resident on
+one iGPU garble each other. A session only ever sends one request at a time; keep
+everything else off the Ollama server while it runs, and run Ollama with
+`OLLAMA_NUM_PARALLEL=1`.
 
-- First sweep (4 October 2026): the flow reached its last phase in 3½ minutes, three
-  searches were recorded, the world desk filed one real sourced story (a UN General
-  Assembly debate, with URL). The tech desk filed nothing sourced, and the editor's
-  edition turn did not write the paper.
-- Second sweep, same day, after the platform fixes below: the editor's opening turn
-  repeated one sentence ("The editor does not write.") to the token ceiling, both desks
-  answered in word salad ("You can't you can't have two same."), neither searched, and
-  the session was stopped.
-
-The flow itself behaved the same both times — phases advanced, the gate reported
-honestly, nothing was invented into the ledger. What a 24B model cannot do reliably is
-hold a role while tool-calling inside a multi-actor transcript (see *What this sample
-does not do well*). Run the local cast to watch the machinery, and to be able to say
-the news could not have been in the weights; run the hosted cast to read the paper.
-
-Both casts use **one connection for the whole roster.** An earlier version cast the
-editor and the desks on different local models and was worse than either alone: two
-models resident on one iGPU garble each other (on the same prompt, qwen3 alone answered
-3 times in 4 in 7–45 s, and with devstral also loaded returned empty 3 times out of 3,
-or took 79–220 seconds). The same happens with one model and two requests in flight:
-with `OLLAMA_NUM_PARALLEL=2`, an opening prompt devstral answered properly 4 times in 4
-on an idle server degenerated 4 times in 5 while another request was being served. A
-session only ever sends one request at a time; keep everything else off the Ollama
-server while it runs.
+A hosted model also works — see *A hosted model instead* at the end — but it proves less.
 
 ---
 
@@ -69,15 +56,38 @@ You need:
 
 - a Pyrrhula deployment you can sign up on, with the bundled **SearXNG** service running
   (the standard install starts it)
-- for the recommended cast, a **DeepSeek API key**
-- for the local cast instead, **Ollama** on the machine that hosts the deployment, with
-  the model pulled, and listening on an address the deployment's containers can reach —
-  not only on `127.0.0.1` (a stock host install does that; start it with
-  `OLLAMA_HOST=0.0.0.0`), and roughly 16 GB of free memory while a session runs:
+- **Ollama** on the machine that hosts the deployment, with the model pulled:
 
 ```bash
 ollama pull devstral:24b
 ```
+
+  It must listen on an address the deployment's containers can reach — not only
+  `127.0.0.1` (a stock host install does that; start it with `OLLAMA_HOST=0.0.0.0`) — and
+  needs roughly 20 GB of free GPU or unified memory while a session runs (13 GB of
+  weights plus a 16k-token context).
+
+**Which backend.** This matters more than anything else in this README. On the machine
+the sample was verified on — an AMD Radeon 8060S (Strix Halo, `gfx1151`) integrated GPU —
+Ollama's `-rocm` image produced wrong output in every configuration tried: token garbage
+with the common `HSA_OVERRIDE_GFX_VERSION=11.0.0` workaround, repetition loops without it,
+with flash attention off, with hipBLASLt off, and a hang at small batch sizes. The
+standard image with the **Vulkan** backend was correct and as fast (15 tokens/s, all
+layers on the GPU). The container that works:
+
+```yaml
+image: docker.io/ollama/ollama:0.33.2        # the standard image, not :rocm
+devices: ["/dev/dri:/dev/dri"]               # Vulkan needs only the render node
+environment:
+  - OLLAMA_VULKAN=1
+  - OLLAMA_IGPU_ENABLE=1      # without it Ollama drops an integrated GPU and runs on the CPU
+  - OLLAMA_NUM_PARALLEL=1
+  - OLLAMA_HOST=0.0.0.0
+```
+
+Ollama's log should say `inference compute ... library=Vulkan ... (RADV GFX1151)`. On a
+discrete NVIDIA or AMD card the default backend is probably fine; the test that settles
+it either way is at the end of step 3.
 
 ## Step 1 — Sign up
 
@@ -95,23 +105,7 @@ correctly while you work.
 
 ## Step 3 — Add the model connection
 
-**Personas** (top nav) **→ Model profiles → New model profile**.
-
-### Recommended: DeepSeek
-
-- **Name**: `DeepSeek V4 Pro` (anything you like)
-- **Provider**: `deepseek`
-- **API key**: your DeepSeek key
-- **Model**: `deepseek-v4-pro`
-- leave Max tokens and Endpoint URL blank
-
-Save, then press **Test**: it should say `deepseek/deepseek-v4-pro responded`.
-
-Before the first autonomous run, set a daily cap under **Usage → Limits** (the API is
-`PUT /limits`). The sweep's session used about 70 000 tokens across the three seats;
-`per_persona_daily_tokens = 600000` is generous and still a ceiling.
-
-### Alternative: a local model through Ollama
+**Personas** (top nav) **→ Model profiles → New model profile**:
 
 - **Name**: `Devstral (local)`
 - **Provider**: choose **Other…** and type `ollama_chat` (the UI's "Ollama (local)"
@@ -140,13 +134,23 @@ long as Ollama listens beyond `127.0.0.1` (see *Before you start*); if it change
 change networks, edit the connection.
 
 **Why max tokens.** Ollama's server shifts its context window rather than stopping when
-it fills, so a local model that falls into a repetition loop would never finish its turn
-on its own. Pyrrhula now caps every Ollama turn at **4096 output tokens** unless the
-connection says otherwise, so the failure is bounded without any setting: a looping
-opener on the sweep ran to the ceiling and the session moved on. `2000` on the
-connection halves the time such a turn wastes (about three minutes instead of six on a
-single iGPU) and is still well above anything a turn here needs — the edition is the
+it fills, so a model that falls into a repetition loop would never finish its turn on its
+own. Pyrrhula caps every Ollama turn at **4096 output tokens** unless the connection says
+otherwise, so the failure is bounded without any setting; `2000` halves the time such a
+turn would waste and is still well above anything a turn here needs — the edition is the
 longest, at a few hundred words. Leave it blank if you would rather not tune anything.
+Sampling temperatures travel with the personas in the bundle (0.15 for the desks, 0.2
+for the editor — Mistral's own recommendation for Devstral is 0.15 for agentic use;
+0.6 made the desks announce "I'll search for that" instead of calling the tool).
+
+**The test that matters.** "Responded" only proves the endpoint answers. Before the
+first session, ask the model one real question through Ollama's own CLI
+(`ollama run devstral:24b "Name three rivers"`) and read the answer. If it is not
+three rivers — repeated fragments, `<x|x|x|`, a sentence looping — the GPU backend is
+corrupting output and no prompt will fix it: see *Which backend* above. On the sweep
+machine the broken backend was obvious from the first line of any answer, and the
+same request on the CPU (`"options": {"num_gpu": 0}` through the API) was correct;
+that comparison is the one that settles it.
 
 ## Step 4 — Import the bundle
 
@@ -156,10 +160,8 @@ The report should list **3 personas** (`chief-editor`, `tech-desk`, `world-desk`
 **1 flow** (`daily-edition`, "Daily edition"), **2 knowledge attachments** (the house
 style and a page about the paper), and the vocabulary *bound to the one already here*.
 It will also say each persona was "bound to placeholder (connection did not travel)" —
-that is step 5. On a deployment that reports itself as `0.1.0rc2` it also warns that the
-bundle "was written by Pyrrhula 0.1.0, newer than this deployment"; everything still
-imports. If the organization has imported this bundle before, the two knowledge
-attachments arrive under forked keys (`house-style-imported`); that is harmless.
+that is step 5. If the organization has imported this bundle before, the two knowledge
+attachments arrive under forked keys (`house-style-imported-2`); that is harmless.
 
 The bundle carries the three personas, their briefs, the house style, and the five-phase
 flow: the editor hands out beats, the desks search and file, the editor rules on each
@@ -193,15 +195,10 @@ Press **Test** next to each once it is listed. Both should say *reachable, offer
 tool(s)*. The engines line decides whether this sample works at all; see *About the
 search results* below.
 
-**On the current release the second registration does not yet do its job.** The desks
-are handed a `fetch_page` tool and call it, but every call comes back "not available to
-this workspace in this phase": the platform checks the fetch against a tool list that
-names only `search`. The desks notice and say so ("Page fetches were unavailable in this
-phase, so I am filing from what the search results state"), and file from snippets with
-attribution and no direct quotation, which is what the house style tells them to do
-when they could not open the page. Register `web_fetch` anyway — it costs nothing and
-starts working when the platform is fixed — and expect no `web_fetch` rows in the
-ledger until then.
+Fetches are recorded in the ledger like searches (`web_fetch | fetch`). Some sites
+refuse an unattended fetch and the row says `failed`; the desks are told to fetch
+another result or file from the snippet, attributing it to the publication, and that is
+what they do.
 
 ### The two switches
 
@@ -238,8 +235,9 @@ the editor rules RUN, REWRITE or SPIKE on each, and writes the edition.
 The date is not decoration. The cast cannot know it, and a desk that guesses the year
 searches for the wrong one — observed, on the first run: `recent technology news 2023`.
 
-Then run it. On DeepSeek a session takes about five minutes; on a single iGPU with the
-local cast, three to twenty.
+Then run it. On the sweep machine a session takes three to five minutes: the opener in
+about 15 seconds, a desk turn with its searches and fetches in one to two minutes, the
+edition in half a minute.
 
 When it reaches its last phase, open the session's **Reports**, generate one from the
 **Composed document** template and download it as PDF: that is the edition. The report
@@ -258,13 +256,14 @@ new one.
 
 ## What it should be able to do
 
-- **Search, provably.** Every search is a row in `mcp_call_record`, recorded by the
-  platform whatever the model says about it. That ledger is the evidence, not the copy.
+- **Search, provably.** Every search and fetch is a row in `mcp_call_record`, recorded by
+  the platform whatever the model says about it. That ledger is the evidence, not the
+  copy.
 - **Refuse to invent.** A desk whose search returns nothing usable files nothing and says
   so. The house style is explicit that this is a legitimate outcome and writing from
   memory is not.
 - **Be edited.** The chief editor rules `RUN`, `REWRITE` or `SPIKE` on each story with a
-  reason. Spiked stories are named at the foot of the edition. A two-story paper that is
+  reason. Spiked stories are named at the foot of the edition. A one-story paper that is
   true beats a four-story paper that is padded, and the flow is written so that saying so
   is the normal outcome rather than a failure.
 - **Publish.** The edition renders to PDF through the `composed_document` report
@@ -286,11 +285,11 @@ It exists because a prompt asking a model to search is a prompt a model may decl
 this sample's whole claim rests on the searching having happened. `on_unmet: repeat`
 nudges once and then moves on: a beat nobody can satisfy must not trap the session.
 
-The gate counts read-only calls — searches — as well as side-effecting ones. The session
-emits a `phase_requirement` event when the beat closes; on the DeepSeek run it said
-`"produced": {"tool_calls": 13}, "decision": "met"`, and on the local run where neither
-desk searched it said `"produced": 0, "required": 2, "decision": "repeat"` and sent the
-desks round again. Both are the gate working.
+The gate counts read-only calls — searches and fetches — as well as side-effecting ones.
+The session emits a `phase_requirement` event when the beat closes; on the sweep's clean
+run it said `"produced": {"tool_calls": 7}, "decision": "met"`, and on a run where
+neither desk searched it said `"produced": 0, "required": 2, "decision": "repeat"` and
+sent the desks round again. Both are the gate working.
 
 ## About the search results
 
@@ -322,6 +321,11 @@ empties two of the four. This was learned the hard way: pointed at Hacker News a
 Wikinews alone, ranked by relevance, the freshest result the paper could find was **six
 weeks old**, and both desks correctly filed nothing, edition after edition.
 
+**The date comes from the page, not the result.** The search tool hands the model a
+title, a URL and a snippet; the engines' own dates are not passed through on the current
+release. That is why the desks are told to fetch the page and take the date off it, and
+why a desk that could not open the page prints `date unknown` rather than guessing.
+
 One trap worth knowing. An engine name SearXNG does not recognise **does not error — it
 silently searches the default set instead**. `ecosia`, `baidu news`, `brave news`,
 `yandex news` and `marginalia` each appeared to return 84 excellent results until the
@@ -331,49 +335,59 @@ per-result `engine` field showed not one came from the engine asked for.
 
 Honesty is cheaper than a surprise.
 
-**With the hosted cast**, the weak point is sourcing depth, not discipline. Because page
-fetches currently fail (step 6), every story is built from search snippets: several
-publications attributed per paragraph, no quotation, and the odd `(date unknown)` where
-the engine gave none. The editor's first ruling on the sweep was exactly that — `REWRITE`,
-"four publications are attributed and only the Times is sourced, so list the URL and date
-for every claim you actually saw or cut the others" — and the rewrite complied. Expect a
-thin, correct paper rather than a rich one until fetching works.
+**Runs vary.** Five sessions on the sweep day, same bundle and same model, gave: a
+one-story paper that was true (the run described above); a two-story paper in which one
+story was a 2023 engineering blog post the desk marked `date unknown` and the editor ran
+anyway; a run where the world desk searched twice, found nothing it would stand behind,
+and filed nothing — which the house style allows and the edition said so; and, before
+the prompts were tightened, a run where both desks searched the example query from the
+instructions instead of their beats and the editor filled an empty slot with a story
+she had not been given, URL included. The flow reached its last phase every time, in
+three to five minutes.
 
-**With the local cast**, the problem is the model, and it is a different order of
-problem. A 24B model handles a single-actor task with tools well. What it handles badly
-is holding a **role while tool-calling in a multi-actor transcript**. The platform
-serialises the conversation as `Name: ...` turns, and devstral will cheerfully write
-everyone's lines — filing its story and then the editor's reply to it, in one message.
-Observed across runs: a desk inventing three stories rather than searching; a desk
-emitting the raw tool-definition JSON as message text instead of calling the tool; an
-opening turn that repeats one sentence to the ceiling; desk turns that are not sentences
-at all.
+**What a 24B model gets wrong**, in rough order of frequency: a desk *announces* a tool
+call ("I'll try fetching the pages again") instead of making it, and the turn ends with
+no story; a rewrite turn answers the other desk's ruling, or writes the other desk's
+lines; a search is made of the literal example in an instruction rather than the beat;
+an undated or old page is treated as this week's news. The bundle's phase prompts now
+name each of these, and the low temperatures help, but none is eliminated.
 
 The flow is built so those failures are **visible rather than silent**, which is the part
 worth studying:
 
 - the `reporting` phase reports in a `phase_requirement` event naming `produced` against
   `required`, and goes round again when it is short
-- `mcp_call_record` records searches independently of the prose, so "I searched and found
-  nothing" from a desk that never called the tool is contradicted by an empty ledger
-- an edition with two honest stories, or none, beats four padded ones, and the SPIKED
+- `mcp_call_record` records searches and fetches independently of the prose, so "I
+  searched and found nothing" from a desk that never called the tool is contradicted by
+  an empty ledger
+- an edition with one honest story, or none, beats four padded ones, and the SPIKED
   line at the foot says what was dropped
 
-Be warned that a bad local run is worse than thin. Runs here have ended with an
-"edition" that was the line `Nadia Brekke: (` repeated until the generation ceiling cut
-it off. Across the last several local runs the flow reached its terminal phase almost
-every time, in about three to twenty minutes, but the quality of what came out ranged
-from two properly sourced stories to that. If a local run has visibly gone wrong, pause
-or archive the session: the running turn finishes and nothing further is generated.
+If a run has visibly gone wrong, pause or archive the session: the running turn
+finishes and nothing further is generated. Then read the edition against the ledger
+before trusting it, as *Checking that it really did* says.
+
+## A hosted model instead
+
+The same bundle runs on a hosted model with one connection for all three seats; on the
+4 October 2026 sweep, `deepseek-v4-pro` (provider `deepseek`, model `deepseek-v4-pro`,
+no params) ran the flow in under five minutes with 21 searches, two sourced stories with
+nine URLs between them, two `REWRITE` rulings and a rewrite that answered them. It is a
+richer paper. What it cannot prove is that it *needed* to search: asked what happened
+this week, a hosted model may answer from weights newer than you think, and the
+transcript looks the same either way. The ledger is still real, and for most purposes
+enough. Set a daily cap under **Usage → Limits** before an autonomous run on a paid key
+(`per_persona_daily_tokens = 600000` is generous; that session used about 70 000).
 
 ## Checking that it really did
 
 ```sql
--- every search the platform recorded for this session
+-- every search and fetch the platform recorded for this session
 SELECT created_at, server_key, tool_name, outcome
 FROM mcp_call_record WHERE session_id = '<session>';
 ```
 
 Then read the edition and open a source URL. The dates on the stories should be within
-days of the session. If the paper is thin, read the SPIKED line at the foot — a short
-edition with reasons is this sample working, not failing.
+days of the session, and the page's own publication date should agree with what the
+desk printed. If the paper is thin, read the SPIKED line at the foot — a short edition
+with reasons is this sample working, not failing.
