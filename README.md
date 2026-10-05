@@ -23,7 +23,7 @@ Pyrrhula different from a group chat with several prompts in it.
 
 <table>
 <tr>
-<td><a href="hagnaryd-mystery/"><img src="hagnaryd-mystery/images/director-view.png" alt="Hägnaryd: secrets by holder"></a><br><sub>hagnaryd-mystery — eleven briefs, each held by one character</sub></td>
+<td><a href="hagnaryd-mystery/"><img src="hagnaryd-mystery/images/session.png" alt="Hägnaryd: the interrogation"></a><br><sub>hagnaryd-mystery — six agents, eleven private briefs, one culprit</sub></td>
 <td><a href="mice-invaders/"><img src="mice-invaders/images/session.png" alt="Mice Invaders: a work item approved and the build previewed"></a><br><sub>mice-invaders — a work item, a pull request, a playable build</sub></td>
 </tr>
 <tr>
