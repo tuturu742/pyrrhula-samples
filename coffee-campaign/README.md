@@ -10,6 +10,10 @@ number, and a planner who learned a competitor's launch date under an NDA can pu
 earlier date without saying why. Neither fact can reach the final campaign document,
 because neither is in the brand lead's context when she writes it.
 
+![The working session: the brand lead opens with the allocation, the analyst argues from a number she never states](images/session.png)
+
+![The director view: two confidential facts, each held by exactly one participant](images/director-view.png)
+
 ---
 
 > **What's in the workspace's library:** three knowledge sources, one per class —

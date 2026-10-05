@@ -12,6 +12,10 @@ land-charter and coin to anyone who will go up and stop it.
 > pages of rules, hand-written. Start there if you want the idea in twenty minutes. The
 > [difference is set out below](#how-this-differs-from-karsh-vale).
 
+![Character creation: the player's 3d6 rolls executed by the engine and recorded, the cast's state chips above](images/session-rolls.png)
+
+![A character sheet after the campaign: attributes with modifiers, hit points at zero, the state chips](images/character-sheet.png)
+
 ---
 
 ## What this sample demonstrates

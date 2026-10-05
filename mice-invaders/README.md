@@ -11,6 +11,12 @@ second if your deployment can run code:
 
 Read Part 1 to see how the pair reasons; Part 2 to see a branch come out of it.
 
+![Part 2 in the product: the work item approved, the Godot repo and its environment, and the build offered as a preview](images/session.png)
+
+![The pull request reviewed and approved, the merge order given, and the game served from the preview link](images/review-merge.png)
+
+![The build, opened from the preview link: a cat shooting at a formation of mice](images/game.png)
+
 ---
 
 ## Before you start

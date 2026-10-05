@@ -12,6 +12,10 @@ reviewed against the task rather than against taste — with the review filed on
 a different identity from the one that opened the pull request, because an account cannot
 approve its own.
 
+![The session: the work item approved, the Electron repo with its node runtime, and the agenda the lead was given](images/session.png)
+
+![The end of the loop: the reviewer's verdict on PR #8, the approval, and the lead's merge order](images/review-merge.png)
+
 The app is a good subject for it because its acceptance criteria are *forced* to be
 headless. A browser cannot hold `Esc`, `/`, `F11` or `Ctrl+W`; a desktop shell can. But a
 test container has no display, so the key-blocking rules and the password gate have to be

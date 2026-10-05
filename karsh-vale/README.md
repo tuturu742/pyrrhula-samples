@@ -14,6 +14,10 @@ who ends it.
 > twenty minutes; go there to see it carry a real rulebook. The
 > [difference is set out below](#how-this-differs-from-greyfen-barrows).
 
+![The workspace's knowledge: the rules, three lorebooks of different reach, and a miscellany](images/knowledge.png)
+
+![The context inspector on the referee's opening turn: the budget split across rules, lore and misc, and every entry with its rank and why it was included](images/context-inspector.png)
+
 ---
 
 ## What this sample demonstrates

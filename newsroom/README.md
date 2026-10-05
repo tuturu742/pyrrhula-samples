@@ -14,6 +14,8 @@ visible at a glance.
 That is the point of this sample: it is the one whose output is false if the internet was
 not reached.
 
+![The edition phase: a desk's sourced story with its URL and date, and the editor's paper with one story run and one spiked](images/edition.png)
+
 ## The cast: one local model, through Ollama
 
 The whole roster — chief editor and both desks — runs on **`devstral:24b`** through
