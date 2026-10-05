@@ -14,6 +14,12 @@ who ends it.
 > twenty minutes; go there to see it carry a real rulebook. The
 > [difference is set out below](#how-this-differs-from-greyfen-barrows).
 
+**Why this sample exists.** It shows *levels of lore*: the same world carries what
+everyone in the vale knows, what only the masons' guild knows, and what only the referee
+knows, and each character retrieves exactly the band its membership allows — enforced at
+retrieval time, not by asking the model to pretend. The context inspector below is the
+proof: open any turn and see which entries reached it, from which band, and why.
+
 ![The workspace's knowledge: the rules, three lorebooks of different reach, and a miscellany](images/knowledge.png)
 
 ![The context inspector on the referee's opening turn: the budget split across rules, lore and misc, and every entry with its rank and why it was included](images/context-inspector.png)

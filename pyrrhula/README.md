@@ -36,6 +36,8 @@ Register with any organization name. You land in **Default Workspace** as its **
 **Personas** (top nav) **→ Model profiles → New model profile**: name `DeepSeek`, provider `deepseek`, model
 `deepseek-chat`, and your API key.
 
+![The repo knowledge graph: what the analyzed repository achieves, written into workspace knowledge so every agent plans against it](images/repo-graph.png)
+
 ## Step 4 — Import the team
 
 Workspace → **Export / import** (top right) → upload [`pyrrhula.pyr`](pyrrhula.pyr).

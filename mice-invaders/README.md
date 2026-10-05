@@ -11,6 +11,12 @@ second if your deployment can run code:
 
 Read Part 1 to see how the pair reasons; Part 2 to see a branch come out of it.
 
+**Why this sample exists.** It is the shortest path from "two agents talking" to "a
+pull request and a playable build": one work item, one delegation into a container with
+a real toolchain, a review under a second identity, and a *preview* — the build served
+from a share link anyone can open. The bundle carries the Godot toolchain image pinned
+by digest, which is also what shows images travelling in a `.pyr`.
+
 ![Part 2 in the product: the work item approved, the Godot repo and its environment, and the build offered as a preview](images/session.png)
 
 ![The pull request reviewed and approved, the merge order given, and the game served from the preview link](images/review-merge.png)

@@ -9,6 +9,14 @@ libmpv2 for playback. Nothing about it was written for Pyrrhula, which is the po
 has a real dependency that will not compile without a system library, a test suite with
 pre-existing failures, and a maintainer who has opinions about its documentation.
 
+**Why this sample exists.** The other coding samples build something from nothing. This
+one shows the bench *arriving* at somebody else's codebase: the repository is analyzed
+into the workspace's knowledge graph before anyone plans, a test suite that was already
+red is not blamed on the change, and a program with no web interface at all — a terminal
+client — still gets a preview, because the preview recipe can run `ttyd` and put the TUI
+in a browser tab. It is also the sample that shows what a bundle deliberately does not
+carry: a repository registration and its token stay deployment-side.
+
 ## What is different about this sample
 
 There is no `.pyr` here. A bundle carries a cast, its briefs and its flow — it has never

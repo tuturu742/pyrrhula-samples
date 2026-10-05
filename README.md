@@ -34,6 +34,8 @@ Pyrrhula different from a group chat with several prompts in it.
 
 ## What a `.pyr` file is
 
+![The export page: three visibility modes for secrets, what to include, and password protection](images/export-import.png)
+
 An export of one workspace: its cast, their briefs, the shared reference material, the
 flow they run, and — where the sample has them — the private secrets each character holds.
 It is an ordinary ZIP, so you can open one and read everything in it before you import it.

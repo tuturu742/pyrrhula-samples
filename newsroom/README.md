@@ -14,14 +14,23 @@ visible at a glance.
 That is the point of this sample: it is the one whose output is false if the internet was
 not reached.
 
+**Why this sample exists.** Three things at once: agents with *tools* (search and page
+fetch through the bundled SearXNG), a *ledger* of every call a session made that the
+model cannot write to, and a flow with a requirement gate — the edition phase cannot
+close until each desk has actually searched. And it runs entirely on a local model, which
+is what makes the claim checkable rather than plausible.
+
 ![The edition phase: a desk's sourced story with its URL and date, and the editor's paper with one story run and one spiked](images/edition.png)
 
 ## The cast: one local model, through Ollama
 
-The whole roster — chief editor and both desks — runs on **`devstral:24b`** through
-Ollama, on one connection. A local model is the right cast for this sample because its
-training cutoff makes the claim provable: Devstral cannot know about a story published
-this morning, so if the paper carries one, it looked.
+The whole roster — chief editor and both desks — runs on **one local Ollama connection**.
+A local model is the right cast for this sample because its training cutoff makes the
+claim provable: a model that stopped learning months ago cannot know about a story
+published this morning, so if the paper carries one, it looked. Any Ollama model that
+can call tools will do; the screenshots and the numbers below are from **`devstral:24b`**,
+the model the sample was verified with, and the bundle's sampling temperatures were
+tuned for it.
 
 What it produced on the 5 October 2026 sweep, on a single Radeon 8060S iGPU, in three
 minutes flat: eight tool calls in the ledger (four searches, four page fetches), two
@@ -58,38 +67,20 @@ You need:
 
 - a Pyrrhula deployment you can sign up on, with the bundled **SearXNG** service running
   (the standard install starts it)
-- **Ollama** on the machine that hosts the deployment, with the model pulled:
+- **Ollama** on a machine the deployment can reach, with a tool-capable model pulled
+  (`ollama pull devstral:24b` is the one this README was written against). Installing
+  and running Ollama is its own documentation — follow the
+  [official README](https://github.com/ollama/ollama#readme); the two things that matter
+  here are that it listens on an address the deployment's containers can reach (not only
+  `127.0.0.1` — a stock host install does that; start it with `OLLAMA_HOST=0.0.0.0`) and
+  that it has the memory the model needs (devstral:24b wants roughly 20 GB of GPU or
+  unified memory while a session runs).
 
-```bash
-ollama pull devstral:24b
-```
-
-  It must listen on an address the deployment's containers can reach — not only
-  `127.0.0.1` (a stock host install does that; start it with `OLLAMA_HOST=0.0.0.0`) — and
-  needs roughly 20 GB of free GPU or unified memory while a session runs (13 GB of
-  weights plus a 16k-token context).
-
-**Which backend.** This matters more than anything else in this README. On the machine
-the sample was verified on — an AMD Radeon 8060S (Strix Halo, `gfx1151`) integrated GPU —
-Ollama's `-rocm` image produced wrong output in every configuration tried: token garbage
-with the common `HSA_OVERRIDE_GFX_VERSION=11.0.0` workaround, repetition loops without it,
-with flash attention off, with hipBLASLt off, and a hang at small batch sizes. The
-standard image with the **Vulkan** backend was correct and as fast (15 tokens/s, all
-layers on the GPU). The container that works:
-
-```yaml
-image: docker.io/ollama/ollama:0.33.2        # the standard image, not :rocm
-devices: ["/dev/dri:/dev/dri"]               # Vulkan needs only the render node
-environment:
-  - OLLAMA_VULKAN=1
-  - OLLAMA_IGPU_ENABLE=1      # without it Ollama drops an integrated GPU and runs on the CPU
-  - OLLAMA_NUM_PARALLEL=1
-  - OLLAMA_HOST=0.0.0.0
-```
-
-Ollama's log should say `inference compute ... library=Vulkan ... (RADV GFX1151)`. On a
-discrete NVIDIA or AMD card the default backend is probably fine; the test that settles
-it either way is at the end of step 3.
+**Which backend.** On the machine this sample was verified on — an AMD Radeon 8060S
+integrated GPU — Ollama's ROCm build produced wrong output in every configuration tried,
+while the standard build on its Vulkan backend was correct and as fast. If your GPU is
+unusual, the test at the end of step 3 settles whether the backend is corrupting output
+before you blame the model or the prompt; the Ollama README covers the backend switches.
 
 ## Step 1 — Sign up
 
@@ -109,16 +100,16 @@ correctly while you work.
 
 **Personas** (top nav) **→ Model profiles → New model profile**:
 
-- **Name**: `Devstral (local)`
+- **Name**: `Ollama (local)`
 - **Provider**: choose **Other…** and type `ollama_chat` (the UI's "Ollama (local)"
   choice sets `ollama`, which speaks the generate API and cannot call tools)
 - **API key**: leave blank
 - **Endpoint URL**: your machine's LAN address, port `11434` — e.g.
   `http://192.168.1.20:11434`; see below
 - **Max tokens**: `2000` — optional, see below
-- **Model**: `devstral:24b`
+- **Model**: the model you pulled, e.g. `devstral:24b`
 
-Save, then press **Test**: it should say `ollama_chat/devstral:24b responded`.
+Save, then press **Test**: it should say `ollama_chat/<your model> responded`.
 
 **Which address.** `localhost` is the container itself, so it never works. Use the
 address `ip -4 addr` shows on your wifi or ethernet interface. Measured from inside the
@@ -149,7 +140,7 @@ for the editor — Mistral's own recommendation for Devstral is 0.15 for agentic
 first session, ask the model one real question through Ollama's own CLI
 (`ollama run devstral:24b "Name three rivers"`) and read the answer. If it is not
 three rivers — repeated fragments, `<x|x|x|`, a sentence looping — the GPU backend is
-corrupting output and no prompt will fix it: see *Which backend* above. On the sweep
+corrupting output and no prompt will fix it: see *Which backend* above and the Ollama README. On the sweep
 machine the broken backend was obvious from the first line of any answer, and the
 same request on the CPU (`"options": {"num_gpu": 0}` through the API) was correct;
 that comparison is the one that settles it.

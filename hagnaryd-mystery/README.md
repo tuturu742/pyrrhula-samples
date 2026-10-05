@@ -14,7 +14,7 @@ did.
 
 ![The interview: the inspector's agenda above the transcript, each suspect answering in character](images/session.png)
 
-![The director view: eleven briefs grouped by the character that holds each one; plaintext only on an audited click](images/director-view.png)
+![The personas' visibility table: which scopes each character can read, enforced in the database](images/visibility.png)
 
 ---
 
