@@ -21,7 +21,20 @@ script. The one exception is standing up a piece of software that is genuinely s
 **Start with [hagnaryd-mystery](hagnaryd-mystery/)** if you want to see what makes
 Pyrrhula different from a group chat with several prompts in it.
 
+<table>
+<tr>
+<td><a href="hagnaryd-mystery/"><img src="hagnaryd-mystery/images/session.png" alt="Hägnaryd: the interrogation"></a><br><sub>hagnaryd-mystery — six agents, eleven private briefs, one culprit</sub></td>
+<td><a href="mice-invaders/"><img src="mice-invaders/images/session.png" alt="Mice Invaders: a work item approved and the build previewed"></a><br><sub>mice-invaders — a work item, a pull request, a playable build</sub></td>
+</tr>
+<tr>
+<td><a href="greyfen-barrows/"><img src="greyfen-barrows/images/session-rolls.png" alt="Greyfen Barrows: engine rolls in the transcript"></a><br><sub>greyfen-barrows — dice executed by the engine, rendered from the record</sub></td>
+<td><a href="newsroom/"><img src="newsroom/images/edition.png" alt="The Vantage: a sourced edition on a local model"></a><br><sub>newsroom — this week's news, sourced, on a local model</sub></td>
+</tr>
+</table>
+
 ## What a `.pyr` file is
+
+![The export page: three visibility modes for secrets, what to include, and password protection](images/export-import.png)
 
 An export of one workspace: its cast, their briefs, the shared reference material, the
 flow they run, and — where the sample has them — the private secrets each character holds.

@@ -9,6 +9,14 @@ libmpv2 for playback. Nothing about it was written for Pyrrhula, which is the po
 has a real dependency that will not compile without a system library, a test suite with
 pre-existing failures, and a maintainer who has opinions about its documentation.
 
+**Why this sample exists.** The other coding samples build something from nothing. This
+one shows the bench *arriving* at somebody else's codebase: the repository is analyzed
+into the workspace's knowledge graph before anyone plans, a test suite that was already
+red is not blamed on the change, and a program with no web interface at all — a terminal
+client — still gets a preview, because the preview recipe can run `ttyd` and put the TUI
+in a browser tab. It is also the sample that shows what a bundle deliberately does not
+carry: a repository registration and its token stay deployment-side.
+
 ## What is different about this sample
 
 There is no `.pyr` here. A bundle carries a cast, its briefs and its flow — it has never
@@ -131,7 +139,8 @@ it.
 
    The token is sealed on save and never shown again. Registration clones the repository
    into the hosted store; **Analyze repos** afterwards builds the knowledge graph the
-   planning phases read.
+   planning phases read — written by the workspace **Assistant** persona's model, so that
+   persona needs a connection as well as the bench.
 4. **Start a session** on the *Plan, implement, review* flow with the architect as
    supervisor and the bench as participants, and select the `loxia` repository when you
    create it — that is what makes delegated work available to the phases that ask for it.

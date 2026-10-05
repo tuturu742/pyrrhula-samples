@@ -12,6 +12,10 @@ system, because it was never there to pull.
 Two people in this house planned to kill Ingeborg Wallmark that evening. Only one of them
 did.
 
+![The interview: the inspector's agenda above the transcript, each suspect answering in character](images/session.png)
+
+![The personas' visibility table: which scopes each character can read, enforced in the database](images/visibility.png)
+
 ---
 
 ## Before you start

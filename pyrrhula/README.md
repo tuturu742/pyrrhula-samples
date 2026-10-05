@@ -12,10 +12,12 @@ the objection — not a matter of style.
 ---
 
 > **What's in the workspace's library:** three knowledge sources, one per class —
-> *Engineering Standards* (the invariants a change must not break), *Business
-> Context* (who this is for, what users actually ask for, the constraints), and
-> *Reference* (team glossary, decisions worth remembering). The agents read the
-> standards to review code and the business context to know what the code is for.
+> *Pyrrhula ground rules* (the invariants a change must not break; the `rules` class,
+> shown as *Engineering Handbook* under this workflow), *Why this project exists* (who
+> this is for, what users actually ask for, the constraints; `lore`, shown as *Product
+> Context*), and *Project reference shelf* (team glossary, decisions worth remembering;
+> `misc`, shown as *Runbook*). The agents read the ground rules to review code and the
+> project's purpose to know what the code is for.
 
 ## Before you start
 
@@ -36,6 +38,8 @@ Register with any organization name. You land in **Default Workspace** as its **
 **Personas** (top nav) **→ Model profiles → New model profile**: name `DeepSeek`, provider `deepseek`, model
 `deepseek-chat`, and your API key.
 
+![The repo knowledge graph: what the analyzed repository achieves, written into workspace knowledge so every agent plans against it](images/repo-graph.png)
+
 ## Step 4 — Import the team
 
 Workspace → **Export / import** (top right) → upload [`pyrrhula.pyr`](pyrrhula.pyr).
@@ -47,6 +51,9 @@ secrets.
 ## Step 5 — Point the team at your connections
 
 **Personas** → open each one → set **Connection (model agent)**.
+
+Give the **Assistant** persona a connection too: it drafts for you from the chat widget, and
+its model is the one that writes the repo analysis in *Taking it further*.
 
 The roster is tiered on purpose: give `staff` and `architect` your strongest model, `senior`
 and `qa` something capable, and `middle`/`junior` something cheap and fast. That mix is the
