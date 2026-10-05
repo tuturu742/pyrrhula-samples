@@ -71,8 +71,9 @@ You need:
   (`ollama pull devstral:24b` is the one this README was written against). Installing
   and running Ollama is its own documentation — follow the
   [official README](https://github.com/ollama/ollama#readme); the two things that matter
-  here are that it listens on an address the deployment's containers can reach (not only
-  `127.0.0.1` — a stock host install does that; start it with `OLLAMA_HOST=0.0.0.0`) and
+  here are that it listens on an address the deployment's containers can reach (a stock
+  host install binds only `127.0.0.1`; Ollama's own `OLLAMA_HOST=0.0.0.0` setting — an
+  Ollama variable, not a Pyrrhula one — opens it up) and
   that it has the memory the model needs (devstral:24b wants roughly 20 GB of GPU or
   unified memory while a session runs).
 
