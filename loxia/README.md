@@ -139,7 +139,8 @@ it.
 
    The token is sealed on save and never shown again. Registration clones the repository
    into the hosted store; **Analyze repos** afterwards builds the knowledge graph the
-   planning phases read.
+   planning phases read — written by the workspace **Assistant** persona's model, so that
+   persona needs a connection as well as the bench.
 4. **Start a session** on the *Plan, implement, review* flow with the architect as
    supervisor and the bench as participants, and select the `loxia` repository when you
    create it — that is what makes delegated work available to the phases that ask for it.
