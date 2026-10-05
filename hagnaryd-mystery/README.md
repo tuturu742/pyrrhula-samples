@@ -50,11 +50,23 @@ Tabletop RPG** before importing does the same thing.
 Go to **Personas** (top nav) **→ Model profiles → New model profile**, and fill in:
 
 - **Name**: `DeepSeek` (anything you like)
-- **Provider**: `deepseek`
-- **Model**: `deepseek-chat`
+- **Provider**: choose **Other…** and type `deepseek` (DeepSeek is not in the dropdown
+  itself)
+- **Model**: `deepseek-v4-pro` (or `deepseek-flash`, cheaper and faster). These are the
+  names DeepSeek lists today; the older `deepseek-chat` still answered when this was last
+  checked, but DeepSeek no longer lists it.
 - **API key**: your key
 
-Save. This is the only place your key lives; it is never written into a bundle.
+Press **Test** before you save; it should say the model responded. Save. This is the only
+place your key lives; it is never written into a bundle.
+
+Other providers work too, and you can mix them — one connection per model, each persona
+on whichever you like. Models differ in which sampling knobs they accept (OpenAI's GPT-5
+models refuse any `temperature` other than 1, and the inspector carries `temperature
+0.4`); Pyrrhula drops a parameter the model refuses by name and retries, so you do not
+have to edit anyone's **Generation overrides (JSON)** to move them. A verified run put the
+inspector on `gpt-5.6-terra` with her overrides exactly as shipped: the temperature was
+dropped, `reasoning_effort: high` was kept, and she opened on her first turn.
 
 ## Step 4 — Import the case
 
@@ -67,9 +79,10 @@ The report should tell you it imported:
   `marta`
 - **11 secrets** — the private briefs
 - **1 flow** — "The Hägnaryd Case": the inspector opens the scene and puts the first
-  question, each suspect answers once, the inspector names the contradiction that matters
-  and presses again — three rounds of that, then her conclusion. She leads it; the
-  suspects answer.
+  question; the suspects answer, eight turns a round, in reactive order (whoever has most
+  reason to speak next — a quiet one may sit a round out); between rounds the inspector
+  names the contradiction that matters and presses again. Three rounds of questioning,
+  then her conclusion. She leads it; the suspects answer.
 - **1 knowledge attachment** — the shared setting
 - the vocabulary, *bound to the one already here* rather than duplicated
 
@@ -118,9 +131,14 @@ requests per interview; leave it blank and she gets as many as she likes. Nothin
 to configure, and nothing to reset between games.
 
 What you get: the inspector radios a request by name during her own turns and the
-answer arrives in the same turn. The flow offers the tool **only in her phases** — the
-suspects' phase declares no remote tools, so nobody at the table can call the lab. A
-repeated request is answered again for free.
+answer arrives in the same turn. It also stays with her: each later turn of hers carries
+her own earlier results (as "[Result of your evidence_check request …]" lines in her
+history), so she builds on what the lab said instead of asking again. In a verified run
+she spent the first call on the clothing and the second on the speech file, and her
+verdict cited both. The flow offers the tool **only in her phases** — the suspects' phase
+declares no remote tools, so nobody at the table can call the lab, and nobody else sees
+her results. A repeated request costs a call like any other: Pyrrhula counts calls, not
+distinct questions.
 
 **Why the budget lives here and not in the lab.** The server keeps no count of its own,
 deliberately: an external MCP server is sent only the model's arguments, never a trusted
@@ -190,7 +208,13 @@ Each answers in character. In the final round the inspector delivers a ranked li
 five suspects and names the person she would arrest.
 ```
 
-Then run it.
+Then run it. The table speaks whatever language the inspector opens in: on
+`gpt-5.6-luna` she opened in English; on `gpt-5.6-terra` she opened in Swedish and the
+whole interview followed. If you want a particular language, say so in the agenda.
+
+When it is over, **Reports** on the session page gives you the interview to keep:
+**Transcript** is every line in order, **Session recap** is a narrative summary. Both
+export to PDF.
 
 ---
 
@@ -230,13 +254,20 @@ is in her brief; you can read it on her persona page if you want to referee.
 
 ## Things worth knowing
 
-- **If you use the Gated mode, give the gate its own model.** The gate is a strict-JSON
-  classifier, so it needs structured output — `deepseek-chat` does not offer it, and the
-  gate then *fails closed*: everything concealed, every time, reason recorded. Add a
-  second connection under **Personas → Model profiles** (a verified run used provider
-  `openai`, model `gpt-4.1-mini`) and pick it under **Secret disclosure gate** there.
-  That run produced 8 conceals, 4 hints and 1 full reveal — including a character giving
-  up the clue that breaks the case open, after which the rest of the table legitimately
-  knows it. On DeepSeek alone, use **Trusted to the model** instead.
+- **If you use the Gated mode, consider giving the gate its own model.** The gate is a
+  strict-JSON classifier. DeepSeek refuses schema-constrained output, so on DeepSeek
+  Pyrrhula falls back to plain JSON mode with the schema in the prompt; that works
+  (checked on `deepseek-v4-pro`, `deepseek-flash` and `deepseek-chat`), but a model with
+  real structured output is the safer classifier. If the gate cannot produce a valid
+  verdict, it *fails closed*: everything concealed, reason recorded. To pick a gate model,
+  add a connection under **Personas → Model profiles** (a verified run used provider
+  `openai`, model `gpt-4.1-mini`, which OpenAI still serves) and choose it under
+  **Secret disclosure gate** there. Leave that unset and the gate runs on each speaking
+  persona's own connection. The `gpt-4.1-mini` run produced 8 conceals, 4 hints and 1
+  full reveal — including a character giving up the clue that breaks the case open, after
+  which the rest of the table legitimately knows it.
+- **The import report names the secrets.** Step 4's list of what was imported shows the
+  first words of each secret, which gives the case away. If you intend to play, don't
+  read that list closely.
 - **Cost.** Six agents, plus one extra small call per secret-holding turn while the gate
   is on.

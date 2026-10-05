@@ -10,9 +10,11 @@
 #   key            evidence
 #   url            http://evidence-lab:8765
 #   enabled tools  evidence_check
+#   calls/session  2
 #
-# The two-request budget lives in the pod's memory: delete the pod to reset it for a
-# fresh session --  kubectl -n pyrrhula rollout restart deploy/evidence-lab
+# The two-request budget is NOT kept here: the server keeps no count. Pyrrhula enforces
+# it per session (calls/session above), so one pod serves any number of games and there
+# is nothing to restart between them.
 apiVersion: v1
 kind: Service
 metadata:

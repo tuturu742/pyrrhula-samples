@@ -188,15 +188,18 @@ autonomous run, and a second kick races the first.
 and delegates it. Then, in the transcript:
 
 - a **container** line: the environment it created, and on which engine
-- the harness installing itself and the agent *working* — list the files, read the
-  scaffold, write `src/key-blocker.js`, run `npm test`, read what failed, fix it
-- a **bounded summary in Pike's own voice**: how many steps, which tools, what it
-  concluded, how many tokens. Something like
-  *"17 steps (write ×9, bash ×4, edit ×2) · 125,231 tokens — All tests pass."*
+- a few minutes of quiet while the harness installs itself and the agent *works* inside
+  the container — lists the files, reads the scaffold, writes `src/key-blocker.js`, runs
+  `npm test`, reads what failed, fixes it. None of that is posted step by step; it comes
+  back as the next item
+- **🔀 Opened #1** — a real pull request on your fork, with its link, the size of the diff
+  and *CI: passed* (the number is whatever GitHub assigns next on your fork), followed by a
+  **bounded summary in Pike's own voice**: how many steps, which tools, what it concluded,
+  how many tokens. Something like
+  *"16 steps (write ×9, bash ×3, read ×3, glob ×1) · 37,465 tokens — All 21 tests pass."*
 - `Lead Wren` reviewing the diff against the work item, and either approving it or sending
   it back with specifics — in which case Pike reworks it in the same container and you see
   a second round
-- **🔀 Opened PR-1** — a real pull request on your fork
 
 On GitHub: the pull request authored by your first account, and — if you bound the second —
 `APPROVED` by the other. Nine files, `npm test` green.

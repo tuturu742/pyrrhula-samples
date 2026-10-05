@@ -6,6 +6,6 @@
     "effectful_tools": [],
     "require_confirmation": false,
     "max_calls_per_session": 2,
-    "note": "The forensic lab. Two requests per session is the budget the case is written around: the inspector must choose which questions are worth asking. Run the server first -- see README step 5.5. The url is the in-cluster service; on compose use http://host.containers.internal:8765."
+    "note": "The forensic lab. Two requests per session is the budget the case is written around: the inspector must choose which questions are worth asking. Run the server first -- see README step 5.5. The url is the in-cluster service (Kubernetes); on compose use your machine's LAN address, e.g. http://192.168.1.20:8765 -- host.containers.internal usually does not route from a compose network."
   }
 ]
