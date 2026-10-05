@@ -14,8 +14,8 @@ the objection — not a matter of style.
 > **What's in the workspace's library:** three knowledge sources, one per class —
 > *Pyrrhula ground rules* (the invariants a change must not break; the `rules` class,
 > shown as *Engineering Handbook* under this workflow), *Why this project exists* (who
-> this is for, what users actually ask for, the constraints; `lore`, shown as *Review
-> Rubric*), and *Project reference shelf* (team glossary, decisions worth remembering;
+> this is for, what users actually ask for, the constraints; `lore`, shown as *Product
+> Context*), and *Project reference shelf* (team glossary, decisions worth remembering;
 > `misc`, shown as *Runbook*). The agents read the ground rules to review code and the
 > project's purpose to know what the code is for.
 
