@@ -50,6 +50,9 @@ secrets.
 
 **Personas** → open each one → set **Connection (model agent)**.
 
+Give the **Assistant** persona a connection too: it drafts for you from the chat widget, and
+its model is the one that writes the repo analysis in *Taking it further*.
+
 The roster is tiered on purpose: give `staff` and `architect` your strongest model, `senior`
 and `qa` something capable, and `middle`/`junior` something cheap and fast. That mix is the
 point — a table where every seat runs the same model is an expensive way to get one opinion
