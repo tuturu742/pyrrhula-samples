@@ -34,7 +34,8 @@ before. That is what a handbook is for, and it is the thing a sample can acciden
 demonstrate by marking everything always-on.
 
 **The whole rulebook, reachable.** The bundle carries the Basic Fantasy Role-Playing Game as
-**482 entries**, one per section, each spell and each monster its own entry. Every section
+**482 entries**, one per section, each spell and each monster its own entry — plus one more,
+**Attribution and licence**, for the CC BY-SA notice. Every section
 carries activation keys derived from its title — they travel in the bundle, because an import
 publishes nothing, and a build that derives keys only at publish time would otherwise leave the
 rulebook reachable by dense search alone — so a turn naming a goblin, a saving throw or a
@@ -167,6 +168,8 @@ No artwork is included.
 
 `tools/bfrpg_odt_to_entries.py` in this repository is how the rulebook was converted from the
 published `.odt` into one entry per section, so the derivation is reproducible and checkable.
+The same notice is an entry in the rulebook itself (**Attribution and licence**), so it
+travels inside the bundle and into any workspace the bundle is imported into.
 
 The setting — the Greyfen, Cromlech, the Grey King's barrow and every named character — was
 generated for this sample and contains no Basic Fantasy text.
