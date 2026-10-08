@@ -1,6 +1,6 @@
 # Pyrrhula samples
 
-Nine ready-made workspaces you can import into a fresh Pyrrhula deployment and run. Each
+Ten ready-made workspaces you can import into a fresh Pyrrhula deployment and run. Each
 one is a `.pyr` file plus a step-by-step README that assumes you have never used Pyrrhula
 before, and every step is something you do in the product — no sample asks you to run a
 script. The one exception is standing up a piece of software that is genuinely separate
@@ -16,6 +16,7 @@ script. The one exception is standing up a piece of software that is genuinely s
 | [toddler-keyboard-chaos](toddler-keyboard-chaos/) | A lead and a senior developer building a real desktop app in a forked repository, where the developer works through a **coding harness** — an agent loop with a shell that reads, edits and runs the tests before anything is committed. Ends in a pull request on your own fork, reviewed under a second identity. | 2 |
 | [loxia](loxia/) | A real repository on a git host: the bench plans against an analyzed codebase, opens pull requests, and refuses to merge a red build. | 6 |
 | [pyrrhula](pyrrhula/) | Pyrrhula working on its own codebase: an architect, a tiered bench of four developers and QA, holding the project's invariants. | 6 |
+| [mafia](mafia/) | Seven models play Mafia: roles dealt in secret, a private night chat for the mafia, sealed votes counted by the engine. Nobody is asked to keep a secret; what a player may not know is never in its request. Requires Pyrrhula 0.2.0. | 1 + 7 |
 | [newsroom](newsroom/) | A two-desk daily paper, every seat on a local model, that has to publish this week's news with a source and a date on every story — the one sample whose output is false if the internet was not reached. Read its **What this sample does not do well** first: the searching is real and provable, but the prose is unreliable — run it to watch the machinery, not to read the paper. | 3 |
 
 **Start with [hagnaryd-mystery](hagnaryd-mystery/)** if you want to see what makes
