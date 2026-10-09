@@ -87,8 +87,8 @@ What each session page shows, besides the conversation:
 
 ## Known quirks
 
-- Some hosted reasoning models occasionally open a turn with a line of their own
-  instructions ("Do not announce your vote now…"). It comes from the provider's output,
-  not from the game.
+- DeepSeek through OpenRouter was served by third-party hosts and sometimes opened a turn
+  with a line of invented instructions ("Do not announce your vote now…"). Connected to
+  DeepSeek's own API, it did not. Prefer a model's own provider where you can.
 - A vote turn that answers in words without casting its ballot is asked once for it;
   still missing, it counts as an abstention, and the vote record says so.
