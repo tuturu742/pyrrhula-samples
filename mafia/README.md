@@ -55,6 +55,26 @@ The flow's settings are chosen when the session starts:
 Any player may answer `pass` when it has nothing to add. Real games run long; raise
 `day_laps` for anything you mean to measure.
 
+### Phase markers, and recaps if you want them
+
+The flow marks every phase in each player's history: a line such as
+`[Night 2: the mafia talk in private.]` sits exactly where night 2 began. Without it a
+player's history is one undivided stream, and players argued at night about "today's
+vote" for someone already out. In an A/B of four 7-seat games per arm, judged blind
+against the record, markers took messages that got the phase or the living players wrong
+from 6.2% to 0.8%; with three times the day discussion they stayed under 1%.
+
+Two session options switch this per session, for any flow, without editing it — pass
+them as `options` when starting a session through the API:
+
+| Option | Values | Default here |
+|---|---|---|
+| `phase_markers` | `none`, `transcript` (a line where each phase began), `current` (only the phase now running) | `transcript` |
+| `recap` | `on`, `off` — a recap of each phase as it ends, written from the record for each player: the vote, who spoke and whom they named | `off` |
+
+The recap made no measurable difference in these games — markers already brought the
+mistakes near zero — so it is off; it is there for much longer games.
+
 ## A game, as it was played
 
 With seven seats and two mafia on a mix of hosted models through OpenRouter, the four
@@ -92,3 +112,5 @@ What each session page shows, besides the conversation:
   DeepSeek's own API, it did not. Prefer a model's own provider where you can.
 - A vote turn that answers in words without casting its ballot is asked once for it;
   still missing, it counts as an abstention, and the vote record says so.
+- With a single mafia player (4 seats) the private night chat is that player talking to
+  itself for two turns before the night vote. Harmless; the chat exists for two or more.
