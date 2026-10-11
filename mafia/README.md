@@ -43,7 +43,7 @@ one connection for all of them to watch one model play against itself.
 | Players | `mafia_count` | Notes |
 |---|---|---|
 | 4 | 1 (the default) | starts with a day; enough to see voting, ties and elimination |
-| 7 | 2 | starts with a night; adds the mafia's private night chat |
+| 7 | 2 | starts with night 0, when the mafia meet in private and nobody is taken out; adds the private night chat |
 
 The flow's settings are chosen when the session starts:
 
@@ -80,11 +80,16 @@ mistakes near zero — so it is off; it is there for much longer games.
 With seven seats and two mafia on a mix of hosted models through OpenRouter, the four
 games of the October 2026 test runs went like this:
 
-- Night 1: the two mafia agreed on a target in their private chat and both voted for it.
-  The dawn announcement named the player and their revealed role.
+- Night 0: the two mafia met in their private chat and agreed how to play the first day:
+  keep their distance in public, and whom to steer suspicion toward. Nobody is taken out
+  on night 0, so the first death comes from a vote made with something to go on.
 - Day 1: the table argued over two laps and voted. When the town found a mafia player,
   the town won within the next day. When it voted out one of its own, the arithmetic
   belonged to the mafia: after the next night they were as many as the town.
+- The game ends as soon as it is decided. Once a day vote leaves the mafia one short of
+  the town with a night to come, nothing can stop that night's kill (there is no doctor
+  in this version), so the Host declares the mafia's win there instead of playing out a
+  vote that decides nothing.
 - In the 4-seat test game, the first day's vote tied 2–2, so nobody went out (that is the rule),
   the lone mafia took a player out that night, and the final three voted the mafia out.
 
