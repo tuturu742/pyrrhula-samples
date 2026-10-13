@@ -24,12 +24,16 @@ Requires Pyrrhula 0.2.1 or later (the open-table rules use its open floor).
 
 ## Two rule sets
 
-The bundle carries two flows. The game is the same; how the table talks is not.
+The bundle carries two flows. The game is the same; how the table talks, and when it first
+votes, is not.
 
 | Flow | Day | Night (mafia only) |
 |---|---|---|
-| **Mafia (sport rules)** | Each living player speaks once, in seat order, then everyone votes. Close to competitive (FIIM) rules. | One turn each to agree the shot. |
-| **Mafia (open table)** | Each living player speaks once in seat order; then anyone named may answer, and anyone may raise a hand to speak again, up to `turns_each` turns a day. The vote comes when no hand is up. | The same open floor, in private. |
+| **Mafia (sport rules)** | Each living player speaks once, in seat order, then everyone votes, from day 1. Close to competitive (FIIM) rules. | One turn each to agree the shot. |
+| **Mafia (open table)** | Each living player speaks once in seat order; then anyone named may answer, and anyone may raise a hand to speak again, up to `turns_each` turns a day. The vote comes when no hand is up. **Day 1 is discussion only**: the first player to leave is the one shot on night 1. | The same open floor, in private; only raised hands move it. |
+
+Why no vote on day 1 at the open table: with nobody dead and nobody checked, the first vote
+is blind, and on the sport rules it decided most games (below).
 
 Everything else is shared: a night zero when the mafia meet and nobody is shot; a tie gets
 a defence speech each and a run-off among the tied (a second tie: nobody leaves); whoever
