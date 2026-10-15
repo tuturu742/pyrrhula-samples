@@ -20,23 +20,34 @@ engine, with their effects applied from the record; private checks; private chan
 an open floor where players raise hands. The Host persona narrates, but the engine decides
 every outcome. A vote result, a check and the final roles are records, not prose.
 
-Requires Pyrrhula 0.2.1 or later (the open-table rules use its open floor).
+Requires Pyrrhula 0.2.3 or later (the tournament rules use its picks, vote thresholds and
+votes between options; the open-table rules use its open floor).
 
-## Two rule sets
+## Three rule sets
 
-The bundle carries two flows. The game is the same; how the table talks, and when it first
-votes, is not.
+The bundle carries three flows. The game is the same; how the table talks, how it votes,
+and how much the mafia may talk in private, is not.
 
 | Flow | Day | Night (mafia only) |
 |---|---|---|
-| **Mafia (sport rules)** | Each living player speaks once, in seat order, then everyone votes, from day 1. Close to competitive (FIIM) rules. | One turn each to agree the shot. |
+| **Mafia (tournament rules)** | Each living player speaks once, in seat order, and may **nominate** one living player. Only nominees can be voted on. Nobody nominated, or a single nominee on day 1: no vote. A single nominee on a later day leaves without a vote. Close to competitive (FIIM) rules. | **No talk.** The mafia meet once, on night 0, where the Don sets the order of shots. Each night every mafia player shoots alone; the shot lands only if all of them name the same player. |
 | **Mafia (open table)** | Each living player speaks once in seat order; then anyone named may answer, and anyone may raise a hand to speak again, up to `turns_each` turns a day. The vote comes when no hand is up. **Day 1 is discussion only**: the first player to leave is the one shot on night 1. | The same open floor, in private; only raised hands move it. |
+| **Mafia (imbalanced: the mafia talk every night)** | Each living player speaks once, in seat order, then everyone votes for anyone, from day 1. | One turn each, every night, to agree the shot and plan the next day. |
+
+The imbalanced flow was called "sport rules" until October 2026. It is not: in tournament
+Mafia the mafia never talk after night 0. A private chat every night tilts the game toward
+the mafia (below), which is why it is kept, under an honest name, for studying how models
+play a lopsided game.
 
 Why no vote on day 1 at the open table: with nobody dead and nobody checked, the first vote
-is blind, and on the sport rules it decided most games (below).
+is blind, and on the imbalanced rules it decided most games (below).
 
-Everything else is shared: a night zero when the mafia meet and nobody is shot; a tie gets
-a defence speech each and a run-off among the tied (a second tie: nobody leaves); whoever
+Ties: in the tournament rules, the tied players each make a defence and the table votes
+again between them; a second tie puts a yes/no vote to the table on all of them leaving
+together, which needs more than half of the living players. In the other two, a second tie
+means nobody leaves.
+
+Everything else is shared: a night zero when the mafia meet and nobody is shot; whoever
 leaves gets last words; a Don or Sheriff shot at night still makes that night's check and
 leaves at dawn; roles stay secret until the game ends; the player shot on the first night
 names three suspects (the "best move").
@@ -55,26 +66,26 @@ one connection for all of them to watch one model play against itself.
 ## Running it
 
 1. Import `mafia.pyr`: Workspace → **Export / import** (top right) → upload `mafia.pyr`. It
-   brings the eleven personas and both flows; connections do not travel.
+   brings the eleven personas and the three flows; connections do not travel.
 2. Create your model connections and assign one to each persona. The Host needs a
    connection too; a cheap, fast model is enough.
 3. Start a session with the Host as supervisor and all ten players as participants, and
-   pick **Mafia (sport rules)** or **Mafia (open table)**.
+   pick one of the three flows.
 
 The flows' settings are chosen when the session starts:
 
 | Setting | Flow | Default | Range | Meaning |
 |---|---|---|---|---|
-| `mafia_count` | both | 3 | 1–4 | how many players are dealt mafia (one of them the Don) |
-| `day_laps` | sport rules | 1 | 1–5 | how many times the day speeches go round the table |
+| `mafia_count` | all | 3 | 1–4 | how many players are dealt mafia (one of them the Don) |
+| `day_laps` | tournament, imbalanced | 1 | 1–5 | how many times the day speeches go round the table |
 | `turns_each` | open table | 3 | 1–6 | the most turns one player gets in one discussion, day or night |
 
-A sport-rules game took about 35 minutes and an open-table game takes longer, because a day
-runs up to three times as many turns.
+An imbalanced-rules game took about 45 minutes and an open-table game about 80, because a
+day runs up to three times as many turns.
 
 ### Phase markers
 
-Both flows mark every phase in each player's history: a line such as
+Every flow marks every phase in each player's history: a line such as
 `[Night 2: the mafia talk in private.]` sits exactly where night 2 began. Without it a
 player's history is one undivided stream, and players argued at night about "today's vote"
 for someone already out. In an A/B of four games per arm, judged blind against the record,
@@ -82,9 +93,9 @@ markers took messages that got the phase or the living players wrong from 6.2% t
 The `phase_markers` and `recap` session options switch this per session (see
 [docs/participants-and-ballots.md](https://github.com/tuturu742/pyrrhula/blob/main/docs/participants-and-ballots.md)).
 
-## What the sport rules showed
+## What the imbalanced rules showed
 
-In October 2026, 15 frontier and open models played 42 ten-seat games on the sport rules,
+In October 2026, 15 frontier and open models played 42 ten-seat games on the imbalanced rules,
 each model in about 28 of them, with seats spread so every table was a different mix:
 
 - **The mafia won 29 of 42.** Day 1 decided most games: when the first day's vote removed
@@ -94,7 +105,7 @@ each model in about 28 of them, with seats spread so every table was a different
   case so far".
 - **The mafia used their night chat to plan the next day** ("Tomorrow: Sage pushes Riley,
   Kendall stays quiet…") while town got one public speech each. That asymmetry is what the
-  open-table rules were written to test.
+  open-table rules were written to test, and the tournament rules remove.
 
 ## What each session page shows
 
@@ -108,11 +119,12 @@ Besides the conversation:
 
 ## What to look for
 
-- **Deception.** The mafia's night chat is in the transcript (the overseer sees
-  everything). Compare what the mafia planned at night with what they said the next day.
+- **Deception.** The mafia's night chat (night 0 only, in the tournament rules) is in the
+  transcript (the overseer sees everything). Compare what the mafia planned at night with what they said the next day.
 - **Deduction.** Every day ballot says who suspected whom. A town player's votes against
   actual mafia are its hits.
-- **Persuasion.** Who moved the table: whose accusation the majority's ballots followed.
+- **Persuasion.** Who moved the table: whose accusation the majority's ballots followed,
+  and (tournament rules) whose nominations reached a vote.
 - **The floor** (open table). Who raises a hand with nothing new to say, who is named most,
   and who answers an accusation and who lets it stand.
 
